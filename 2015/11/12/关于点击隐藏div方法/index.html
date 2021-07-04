@@ -4,11 +4,14 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>如何使用hexo搭建blog | Binvon&#39;s blog</title>
+    <title>关于点击隐藏div方法 | Binvon&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     
-    <meta name="description" content="测试图片">
+    <meta name="description" content="首先定义div class=“classA”
+ $(&amp;quot;.classA&amp;quot;).mouseenter(function()&amp;#123;
+        $(&amp;quot;body&amp;quot;).unbind(&amp;quot;click&amp;quot;);
+      &amp;#125;);   // ">
     
     
     
@@ -66,7 +69,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/23/使用hexo搭建blog/" title="如何使用hexo搭建blog" itemprop="url">如何使用hexo搭建blog</a>
+      <a href="/2015/11/12/关于点击隐藏div方法/" title="关于点击隐藏div方法" itemprop="url">关于点击隐藏div方法</a>
   </h1>
   <!-- 显示作者
   <p class="article-author">By
@@ -75,8 +78,8 @@
     </p>
   -->  
   <p class="article-time">
-    <time datetime="2017-02-23T07:20:35.000Z" itemprop="datePublished">2017-02-23</time>
-    更新日期:<time datetime="2021-01-11T17:32:25.034Z" itemprop="dateModified">2021-01-12</time>
+    <time datetime="2015-11-12T09:53:30.000Z" itemprop="datePublished">2015-11-12</time>
+    更新日期:<time datetime="2015-11-13T09:53:30.000Z" itemprop="dateModified">2015-11-13</time>
     
   </p>
 </header>
@@ -89,7 +92,20 @@
 		
 		</div>
 		
-		<p><img src="https://img.binvon.com/githubblog/img/timg.jpg" alt="image"><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/timg2.jpg" alt="image"><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/WYCWF7DRAj12EHZgcMVbWyCbPDUIXAA3.gif" alt="image"><br>测试图片</p>
+		<p>首先定义div class=“classA”</p>
+<pre><code> $(&quot;.classA&quot;).mouseenter(function()&#123;
+        $(&quot;body&quot;).unbind(&quot;click&quot;);
+      &#125;);   // 当鼠标在class=&quot;classA&quot;中的时候解除绑定事件 取消body点击事件
+
+
+    $(&quot;.classA&quot;).mouseleave(function()&#123;
+         $(&quot;body&quot;).click(function()&#123;
+             $(&quot;#allSetting&quot;).hide(); //需要隐藏的div  id=AllSeting  这里可以添加多个
+         &#125;)
+     &#125;);
+</code></pre>
+<p>$().mouseenter(function(){})//鼠标移入事件</p>
+<p>$().mouseleave(function(){})//鼠标移出事件</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -99,13 +115,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/blog/">blog</a>
+  <a class="article-category-link" href="/categories/js/">js</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/hexo/">hexo</a>
+  <span></span> <a href="/tags/js/">js</a>
   </div>
 
 
@@ -115,18 +131,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2019/12/29/使用goolge-cloud建设ssr/" title="使用goolge cloud建设ssr">
+ <a href="/2017/02/23/使用hexo搭建blog/" title="如何使用hexo搭建blog">
   <strong>上一篇:</strong><br/>
   <span>
-  使用goolge cloud建设ssr</span>
+  如何使用hexo搭建blog</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/11/12/关于点击隐藏div方法/"  title="关于点击隐藏div方法">
+<a href="/2015/07/10/JDK安装与环境变量配置/"  title="JDK安装与环境变量配置">
  <strong>下一篇:</strong><br/> 
- <span>关于点击隐藏div方法
+ <span>JDK安装与环境变量配置
 </span>
 </a>
 </div>
@@ -136,7 +152,7 @@
 	<!-- 多说-->
 
 <section class="comment">
-<div class="ds-thread" data-thread-key="post-如何使用hexo搭建blog" data-title="如何使用hexo搭建blog" data-url="http://blog.binvon.com/2017/02/23/%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BAblog/"></div>
+<div class="ds-thread" data-thread-key="post-关于点击隐藏div方法" data-title="关于点击隐藏div方法" data-url="http://blog.binvon.com/2015/11/12/%E5%85%B3%E4%BA%8E%E7%82%B9%E5%87%BB%E9%9A%90%E8%97%8Fdiv%E6%96%B9%E6%B3%95/"></div>
 </section>
 <!-- disqus-->
 
