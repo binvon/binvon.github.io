@@ -33,35 +33,6 @@
       </tags>
   </entry>
   <entry>
-    <title>can not read a block mapping entry; a multiline key may not be an implicit key at line 4, column 1:</title>
-    <url>/2015/09/10/can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1/</url>
-    <content><![CDATA[<p>无法读取块映射项;多行键可能不是第4行第1列的隐式键:</p>
-<p>我是新建一篇博客时、编译出现的错误。其实我之前一直不配置tags的。这里的”:”后面还是要接上空格。</p>
-<p><img src="https://img2020.cnblogs.com/blog/1993793/202010/1993793-20201028090355667-1242082136.png" alt="img"></p>
-<p><img src="https://img2020.cnblogs.com/blog/1993793/202010/1993793-20201028090355970-1145804176.png" alt="img"></p>
-]]></content>
-      <categories>
-        <category>hexoBug</category>
-      </categories>
-      <tags>
-        <tag>hexoBug</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>continue,break,return有什么区别</title>
-    <url>/2015/07/12/continue-break-return%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<p>   1、return ：直接跳出当前的方法,返回到该调用的方法的语句处,继续执行</p>
-<p>   2、break：在循环体内结束整个循环过程</p>
-<p>   3、continue ：结束本次的循环，直接进行下一次的循环</p>
-]]></content>
-      <categories>
-        <category>java基础</category>
-      </categories>
-      <tags>
-        <tag>java基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JDK安装与环境变量配置</title>
     <url>/2015/07/10/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h5>工具/原料</h5>
@@ -97,6 +68,35 @@ WIN7
       </tags>
   </entry>
   <entry>
+    <title>can not read a block mapping entry; a multiline key may not be an implicit key at line 4, column 1:</title>
+    <url>/2015/09/10/can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1/</url>
+    <content><![CDATA[<p>无法读取块映射项;多行键可能不是第4行第1列的隐式键:</p>
+<p>我是新建一篇博客时、编译出现的错误。其实我之前一直不配置tags的。这里的”:”后面还是要接上空格。</p>
+<p><img src="https://img2020.cnblogs.com/blog/1993793/202010/1993793-20201028090355667-1242082136.png" alt="img"></p>
+<p><img src="https://img2020.cnblogs.com/blog/1993793/202010/1993793-20201028090355970-1145804176.png" alt="img"></p>
+]]></content>
+      <categories>
+        <category>hexoBug</category>
+      </categories>
+      <tags>
+        <tag>hexoBug</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>continue,break,return有什么区别</title>
+    <url>/2015/07/12/continue-break-return%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<p>   1、return ：直接跳出当前的方法,返回到该调用的方法的语句处,继续执行</p>
+<p>   2、break：在循环体内结束整个循环过程</p>
+<p>   3、continue ：结束本次的循环，直接进行下一次的循环</p>
+]]></content>
+      <categories>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>java基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java的泛型</title>
     <url>/2021/07/05/java%E7%9A%84%E6%B3%9B%E5%9E%8B/</url>
     <content><![CDATA[]]></content>
@@ -124,6 +124,128 @@ WIN7
       </categories>
       <tags>
         <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>生成分布式ID算法.md</title>
+    <url>/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95-md/</url>
+    <content><![CDATA[<p><strong>一、分布式ID</strong></p>
+<p><strong>1. 为什么需要分布式全局唯一ID？</strong></p>
+<p>在复杂的分布式系统中，往往需要对大量的数据和消息进行唯一标识。如在美团点评的金融、支付、餐饮、酒店等产品的系统中数据日渐增长，对<strong>数据分库分表后需要有一个唯一ID来标识</strong>某一条数据或消息，此时一个能够生成全局唯一ID的系统是非常必要的。</p>
+<p><strong>2. 那么分布式ID生成需要满足哪些条件</strong></p>
+<ul>
+<li>全局唯一：分布式系统下必须要保证ID是全局唯一的，这是最基本的要求；</li>
+<li>高性能：高可用低延时，ID生成响应要快，否则反倒会成为业务瓶颈；</li>
+<li>高可用：100%的可用性是骗人的，但是也要无限接近于100%的可用；</li>
+<li>好接入：要秉着拿来即用的设计原则，在系统设计和实现上要尽可能的简单；</li>
+<li>趋势递增：由于多数公司使用的是MySQL InnoDB作为存储引擎，所以ID最好趋势递增。</li>
+</ul>
+<p><strong>二、一般通用方案</strong></p>
+<p><strong>1. UUID</strong></p>
+<p>String uuid = UUID.randomUUID().toString().replaceAll(“-“,””);</p>
+<ul>
+<li>UUID的标准形式：包含32个16进制数字，以连字号分为五段，形式为8-4-4-12的36个字符；</li>
+<li>优点：代码简单，性能非常高（本地生成，没有网络消耗），保证唯一（重复概率极低可以忽略）；</li>
+<li>缺点：生成的ID是无序的字符串，无法保证趋势递增，且没有一定的业务含义；还有就是长度过长入且无序，会严重消耗MySQL数据库性能。</li>
+</ul>
+<p>为什么无序的UUID会导致入库性能变差呢？</p>
+<ul>
+<li><strong>作为主键过长</strong>，MySQL官方有明确的建议主键尽量越短越好，36个字符长度的UUID不符合要求；</li>
+<li><strong>字符串且无序</strong>，MySQL InnoDB引擎的索引底层数据结构是B+树，每一次新的UUID插入表，都会对主键底层的B+树索引进行很大的修改，插入完全无序，不但会导致一些中间节点产生分裂，也会白白创造出很多不饱和的节点，这样大大降低了数据库插入的性能，还会增加读取磁盘的次数。</li>
+</ul>
+<p><strong>2. 数据库自增主键</strong></p>
+<ul>
+<li>单点模式自增ID</li>
+</ul>
+<p>在分布式里，数据库的自增ID机制的主要原理是：数据库自增ID和MySql数据库的replace into实现的。</p>
+<p>replace into 跟 insert 功能类似，不同点在于：replace into首先尝试插入数据列表中，如果发现表中已经有此行数据（根据主键或唯一索引）判断是否存在，若有则先删除再插入，否则直接插入新数据。REPLACE INTO的含义是插入一条记录，如果表中唯一索引的值遇到冲突，则替换老数据。</p>
+<p>CREATE TABLE t_test ( id bigint(20) unsigned not null auto_increment primary key, stub char(1) not null default ‘’, unique key stub (stub) ) select * from t_test; replace into t_test (stub) values(‘a’); select last_insert_id();</p>
+<p>当我们需要一个ID时，向表中插入一条记录返回主键ID即可。此种方式优点：实现简单，ID单调自增，数值类型查询速度快；缺点：1）强依赖DB，存在单点问题，一旦数据库宕机，整个业务不可用；2）单点数据库压力大，无法扛住高并发场景；3）信息安全问题，比如暴露订单量等。</p>
+<ul>
+<li>集群式自增ID</li>
+</ul>
+<p>对上面单点模式做优化，改成集群模式自增ID，也就是多个MySQL实例各自生成自增ID。要设置起始值和自增步长，保证生成ID不会重复。</p>
+<ul>
+<li>优点：解决了ID生成的单点问题，同时平衡了负载；</li>
+<li>缺点：系统后续水平扩容比较困难，增加机器可能要修改步长，起始值也不容易设置。数据库压力还是很大，每次获取ID都得读写一次数据库，非常影响性能，依旧无法满足高并发场景。</li>
+</ul>
+<p><strong>3. 基于Redis生成全局ID策略</strong></p>
+<p>因为Redis是单线程的天生保证原子性， 利用Redis的<strong>incr</strong>命令实现ID的原子性自增。</p>
+<p>127.0.0.1:6379&gt; set seq_id 1     // 初始化自增ID为1 OK 127.0.0.1:6379&gt; incr seq_id      // 增加1，并返回递增后的数值 (integer) 2</p>
+<p>集群分布式，可以使用Redis集群来获取更高的吞吐量，注意：在Redis集群情况下，同样和MySql一样需要设置不同的增长步长，同时key一定要设置有效期。</p>
+<p>假如一个集群中有5台Redis，可以初始化每台Redis的值分别是1，2，3，4，5 然后步长都是5，每个redis生成的ID为：</p>
+<p>​    A：1、6、11、16、21 B：2、7、12、17、22 C：3、8、13、18、23 D：4、9、14、19、24 E：5、10、15、20、25</p>
+<p>优点：效率高，不依赖数据库，可以扛住高并发场景；</p>
+<p>缺点：要考虑Redis的持久化问题，Redis支持RDB和AOF两种持久化的方式。</p>
+<ul>
+<li>RDB会定时打一个快照，如果打完快照后，连续自增了几次，还没来得及做下一次快照持久化，此时Redis挂掉了，重启Redis后会出现ID重复的情况。</li>
+<li>AOF会对每条写命令进行持久化，即使Redis挂掉了也不会出现ID重复的情况，但是由于incr命令的特殊性，会导致Redis重启恢复数据时间过长。</li>
+</ul>
+<p><strong>三、雪花算法 - Snowflake</strong></p>
+<p><strong>1. 概述</strong></p>
+<p>Twitter的分布式ID生成算法，开源后广受国内大厂的好评，经测试snowflake每秒能够生产26万个自增可排序的ID。</p>
+<p>特点：</p>
+<ul>
+<li>生成结果是一个64bit大小的Long类型整数；</li>
+<li>生成ID能够按照时间有序生成；</li>
+<li>不会产生ID碰撞并且效率较高。</li>
+</ul>
+<p><strong>2. 结构</strong></p>
+<p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95/2737C82A2841449F9A94F9806591BA7C.png" alt="雪花算法"></p>
+<p>结构：符号位（1bit）+ 时间戳（41bit）+ 机器ID（5bit）+ 数据中心（5bit）+ 自增序列号（12bit）</p>
+<ul>
+<li>符号位：Java中Long的最高位是符号位代表正负，正数是0，负数是1，一般生成ID都为正数，所以默认为0；</li>
+<li>时间戳：毫秒级的时间，不建议存当前时间戳，而是用（当前时间戳 - 固定开始时间戳）的差值，可以使产生的ID从更小的值开始；41位的时间戳可以使用69年，(1L &lt;&lt; 41) / (1000L 60 60 24 365) = 69年；</li>
+<li>工作机器ID：用来记录工作机器ID。可以部署 2^{10} = 1024个节点，包括5位datacenterId和5位workerId。可以灵活配置，机房或者机器号组合都可以；</li>
+<li>序列号：自增值，支持同一毫秒内同一个节点（同一个机器）可以生成4096个ID。</li>
+</ul>
+<p>因为时间戳是递增的，序列号也是递增的，所以雪花算法可以保证所有生成的ID按时间趋势递增，整个分布式系统内不会产生重复ID（因为有 datacenterId 和 workId来做区分）。</p>
+<p><strong>3. 源码</strong></p>
+<p>Java版(Hutool)：</p>
+<p>/** * Twitter的Snowflake 算法<br> * 分布式系统中，有一些需要使用全局唯一ID的场景，有些时候我们希望能使用一种简单一些的ID，并且希望ID能够按照时间有序生成。 * * <p> * snowflake的结构如下(每部分用-分开):<br> * * <pre> * 0 - 0000000000 0000000000 0000000000 0000000000 0 - 00000 - 00000 - 000000000000 * </pre> * <p> * 第一位为未使用(符号位表示正数)，接下来的41位为毫秒级时间(41位的长度可以使用69年)<br> * 然后是5位datacenterId和5位workerId(10位的长度最多支持部署1024个节点）<br> * 最后12位是毫秒内的计数（12位的计数顺序号支持每个节点每毫秒产生4096个ID序号） * <p> * 并且可以通过生成的id反推出生成时间,datacenterId和workerId * <p> * 参考：<a href="http://www.cnblogs.com/relucent/p/4955340.html">http://www.cnblogs.com/relucent/p/4955340.html</a> * * @author Looly * @since 3.0.1 <em>/ public class Snowflake implements Serializable {    private static final long serialVersionUID = 1L;     // 开始时间戳    private final long twepoch;    // 机器标识位数    private final long workerIdBits = 5L;    // 数据中心标识位数    private final long dataCenterIdBits = 5L;     最大支持机器节点数0<del>31，一共32个    // 最大支持数据中心节点数0</del>31，一共32个    @SuppressWarnings({“PointlessBitwiseExpression”, “FieldCanBeLocal”})    private final long maxWorkerId = -1L ^ (-1L &lt;&lt; workerIdBits);    @SuppressWarnings({“PointlessBitwiseExpression”, “FieldCanBeLocal”})    private final long maxDataCenterId = -1L ^ (-1L &lt;&lt; dataCenterIdBits);    // 序列号12位    private final long sequenceBits = 12L;    // 机器节点左移12位    private final long workerIdShift = sequenceBits;    // 数据中心节点左移17位    private final long dataCenterIdShift = sequenceBits + workerIdBits;    // 时间毫秒数左移22位    private final long timestampLeftShift = sequenceBits + workerIdBits + dataCenterIdBits;    @SuppressWarnings({“PointlessBitwiseExpression”, “FieldCanBeLocal”})    private final long sequenceMask = -1L ^ (-1L &lt;&lt; sequenceBits);// 4095     private final long workerId;    private final long dataCenterId;    private final boolean useSystemClock;    private long sequence = 0L;    private long lastTimestamp = -1L;     /**     * 构造     *     * @param workerId     终端ID     * @param dataCenterId 数据中心ID     */    public Snowflake(long workerId, long dataCenterId) {        this(workerId, dataCenterId, false);    }     /**     * 构造     *     * @param workerId         终端ID     * @param dataCenterId     数据中心ID     * @param isUseSystemClock 是否使用{@link SystemClock} 获取当前时间戳     */    public Snowflake(long workerId, long dataCenterId, boolean isUseSystemClock) {        this(null, workerId, dataCenterId, isUseSystemClock);    }     /**     * @param epochDate        初始化时间起点（null表示默认起始日期）,后期修改会导致id重复,如果要修改连workerId dataCenterId，慎用     * @param workerId         工作机器节点id     * @param dataCenterId     数据中心id     * @param isUseSystemClock 是否使用{@link SystemClock} 获取当前时间戳     * @since 5.1.3     */    public Snowflake(Date epochDate, long workerId, long dataCenterId, boolean isUseSystemClock) {        if (null != epochDate) {            this.twepoch = epochDate.getTime();        } else {            // Thu, 04 Nov 2010 01:42:54 GMT            this.twepoch = 1288834974657L;        }        if (workerId &gt; maxWorkerId || workerId &lt; 0) {            throw new IllegalArgumentException(String.format(“worker Id can’t be greater than {}} or less than 0”, maxWorkerId));        }        if (dataCenterId &gt; maxDataCenterId || dataCenterId &lt; 0) {            throw new IllegalArgumentException(String.format(“datacenter Id can’t be greater than {} or less than 0”, maxDataCenterId));        }        this.workerId = workerId;        this.dataCenterId = dataCenterId;        this.useSystemClock = isUseSystemClock;    }     /**     * 根据Snowflake的ID，获取机器id     *     * @param id snowflake算法生成的id     * @return 所属机器的id     */    public long getWorkerId(long id) {        return id &gt;&gt; workerIdShift &amp; ~(-1L &lt;&lt; workerIdBits);    }     /**     * 根据Snowflake的ID，获取数据中心id     *     * @param id snowflake算法生成的id     * @return 所属数据中心     */    public long getDataCenterId(long id) {        return id &gt;&gt; dataCenterIdShift &amp; ~(-1L &lt;&lt; dataCenterIdBits);    }     /**     * 根据Snowflake的ID，获取生成时间     *     * @param id snowflake算法生成的id     * @return 生成的时间     */    public long getGenerateDateTime(long id) {        return (id &gt;&gt; timestampLeftShift &amp; ~(-1L &lt;&lt; 41L)) + twepoch;    }     /</em>*     * 下一个ID     *     * @return ID     <em>/    public synchronized long nextId() {        long timestamp = genTime();        if (timestamp &lt; lastTimestamp) {            // 如果服务器时间有问题(时钟后退) 报错。            throw new IllegalStateException(String.format(“Clock moved backwards. Refusing to generate id for {}ms”, (lastTimestamp - timestamp)));        }        if (lastTimestamp == timestamp) {            sequence = (sequence + 1) &amp; sequenceMask;            if (sequence == 0) {                timestamp = tilNextMillis(lastTimestamp);            }        } else {            sequence = 0L;        }         lastTimestamp = timestamp;         return ((timestamp - twepoch) &lt;&lt; timestampLeftShift) | (dataCenterId &lt;&lt; dataCenterIdShift) | (workerId &lt;&lt; workerIdShift) | sequence;    }     /</em>*     * 下一个ID（字符串形式）     *     * @return ID 字符串形式     <em>/    public String nextIdStr() {        return Long.toString(nextId());    }     // ———————————————————————————————————————————— Private method start     /</em>*     * 循环等待下一个时间     *     * @param lastTimestamp 上次记录的时间     * @return 下一个时间     <em>/    private long tilNextMillis(long lastTimestamp) {        long timestamp = genTime();        while (timestamp &lt;= lastTimestamp) {            timestamp = genTime();        }        return timestamp;    }     /</em>*     * 生成时间戳     *     * @return 时间戳     */    private long genTime() {        return this.useSystemClock ? SystemClock.now() : System.currentTimeMillis();    } }</p>
+<p><strong>4. 工程落地经验</strong></p>
+<p>分布式整合雪花算法：</p>
+<p>IdGenerateInvoker.java</p>
+<p>/** * 分布式环境下数据库主键的ID生成器 * 实现了对分布式友好的Snowflake算法，并且会在Spring IOC容器初始化的时候注册成为单例Bean. * 如果需要自定义生成策略，请实现本接口并将其实例注册到容器中，并在{@link PrimaryKey}的strategy属性指定. * <em>/ public interface IdGenerateInvoker {     /</em>*     * 获取下一个永不重复的id.     *     * @return id.     */    Serializable nextId(); }</p>
+<p>SnowFlakeIdGenerateInvoker.java</p>
+<p>/** * ======分布式数据库主键ID生成器基于SnowFlake算法的实现. * 本实现类的对象将会在程序启动的时候自动在Spring IOC容器中注册为Bean. * 如果想在您的持久化过程中由系统自动设置主键字段的值，只需要在具体的POJO字段上添加@PrimaryKey注解，详见{@link PrimaryKey}. * 其默认打开，并且在未指定具体id生成算法的前提下，它将自动使用SnowFlake算法生成id,在持久化之前自动设置值. * <p> * SnowFlake算法的实现依赖于workerId和dataCenterId两个值的，系统默认使用5L作为其初始值. * 如果您想要在分布式环境使用本算法的实现，建议您在application.yml中配置这2个属性的值. */ @Component public class SnowFlakeIdGenerateInvoker implements IdGenerateInvoker {     @Autowired    private SnowFlakeConfig snowFlakeConfig;     private Snowflake snowflake;     @PostConstruct    public void init() {        long wokerid = snowFlakeConfig.getWorkerId();        long dataCenterId = snowFlakeConfig.getDataCenterId();        this.snowflake = new Snowflake(wokerid, dataCenterId);    }     @Override    public synchronized Serializable nextId() {        return snowflake.nextId();    } }</p>
+<p>SnowFlakeConfig.java</p>
+<ul>
+<li>公司workerId使用位长为8位，取的是机器IP地址后三位；</li>
+<li>dataCenterId使用位长为两位，配置在配置文件中。</li>
+</ul>
+<p>/** * 关于SnowFlake的配置. * WorkerId和DataCenterId的值请保证集群中的每个节点不相同. * WorkerId取ip地址最后三位，dataCenterId配置在properties. */ @Component @Validated @Slf4j @ConfigurationProperties(prefix = “snowflake”) public class SnowFlakeConfig {     @Value(“${spring.application.name}”)    private String appName;     private long workerId;     @NotNull    private long dataCenterId;     @PostConstruct    public void init() {        try {            String ipAddr = NetUtil.getHostIpAddr();            log.info(“current ip :{}”, ipAddr);            if (!StringUtils.isEmpty(ipAddr)) {                String[] ipStep = ipAddr.split(“\.”);                this.workerId = Long.valueOf(ipStep[3]);            } else {                log.warn(“ip address parse error.”);            }        } catch (Exception e) {            throw new RuntimeException(e);        }        log.info(“Snowflake:[workerId:{} from ip address tail, dataCenterId:{} from properties] of micro service [{}] has been initialized.”                , workerId, dataCenterId, appName == null ? “” : appName.toUpperCase());    }     public long getWorkerId() {        return workerId;    }     public void setWorkerId(long workerId) {        this.workerId = workerId;    }     public long getDataCenterId() {        return dataCenterId;    }     public void setDataCenterId(long dataCenterId) {        this.dataCenterId = dataCenterId;    } }</p>
+<p>application.properties</p>
+<p>spring.application.name=ncs-case # snowflake配置 #snowflake.worker-id= snowflake.data-center-id=2</p>
+<p><strong>5. 雪花算法优缺点</strong></p>
+<p>优点：</p>
+<ul>
+<li>毫秒数在高位，自增序列在低位，整个ID都是趋势递增的；</li>
+<li>不依赖数据库等第三方系统，以服务的方式部署，稳定性更高，生成ID的性能也是非常高的；</li>
+<li>可以根据自身业务特性分配bit位，非常灵活。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>依赖机器时钟，如果机器时钟回拨，会导致重复ID生成；</li>
+<li>在单机上是递增的，但是由于设计到分布式环境，每台机器上的时钟不可能完全同步，有时候会出现不是全局递增的情况（此缺点可以认为无所谓，一般分布式ID只要求趋势递增，并不会严格要求递增，90%的需求都只要求趋势递增）。</li>
+</ul>
+<p>补充解决时钟回拨思路：因为机器的原因会发生时间回拨，我们的雪花算法是强依赖机器时间的，如果时间发生回拨，有可能会生成重复的ID，在我们上面的nextId中用当前时间和上一次的时间进行判断，如果当前时间小于上一次的时间那么肯定是发生了回拨，普通的算法会直接抛出异常。这里我们可以对其进行优化，一般分为两个情况：</p>
+<ul>
+<li>如果时间回拨时间较短，比如配置5ms以内，那么可以直接等待一定的时间，让机器时间追上来；</li>
+<li>如果时间的回拨时间较长，我们不能接受这么长的阻塞等待，那么又有两个策略，直接拒绝，抛出异常，打日志，或者通知RD时钟回滚。</li>
+</ul>
+<p><strong>四、其他方式</strong></p>
+<p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95/702192350660.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>百度开源的分布式唯一ID生成器UidGenerator</li>
+<li>美团点评分布式ID生成系统 Leaf</li>
+</ul>
+]]></content>
+      <categories>
+        <category>分布式</category>
+      </categories>
+      <tags>
+        <tag>分布式</tag>
       </tags>
   </entry>
 </search>
