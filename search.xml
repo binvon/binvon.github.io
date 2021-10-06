@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>CentOS7查看最大线程数</title>
+    <url>/2015/07/10/CentOS7%E6%9F%A5%E7%9C%8B%E6%9C%80%E5%A4%A7%E7%BA%BF%E7%A8%8B%E6%95%B0/</url>
+    <content><![CDATA[<p>aaaa</p>
+]]></content>
+      <categories>
+        <category>服务器</category>
+      </categories>
+      <tags>
+        <tag>服务器</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>BIO,NIO,AIO 有什么区别</title>
     <url>/2015/08/05/BIO-NIO-AIO-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<p>BIO （Blocking I/O）：同步阻塞I/O模式，数据的读取写入必须阻塞在一个线程内等待其完成。这里使用那个经典的烧开水例子，这里假设一个烧开水的场景，有一排水壶在烧开水，BIO的工作模式就是， 叫一个线程停留在一个水壶那，直到这个水壶烧开，才去处理下一个水壶。但是实际上线程在等待水壶烧开的时间段什么都没有做。</p>
@@ -14,22 +26,10 @@
 <p>当操作系统在把外部数据放到进程缓冲区的这段时间（即上述的第二，三步），如果应用进程是挂起等待的，那么就是同步IO，反之，就是异步IO，也就是AIO 。</p>
 ]]></content>
       <categories>
-        <category>java基础</category>
+        <category>java</category>
       </categories>
       <tags>
-        <tag>java基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CentOS7查看最大线程数</title>
-    <url>/2015/07/10/CentOS7%E6%9F%A5%E7%9C%8B%E6%9C%80%E5%A4%A7%E7%BA%BF%E7%A8%8B%E6%95%B0/</url>
-    <content><![CDATA[<p>aaaa</p>
-]]></content>
-      <categories>
-        <category>服务器</category>
-      </categories>
-      <tags>
-        <tag>服务器</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -76,10 +76,10 @@ WIN7
 <p><img src="https://img2020.cnblogs.com/blog/1993793/202010/1993793-20201028090355970-1145804176.png" alt="img"></p>
 ]]></content>
       <categories>
-        <category>hexoBug</category>
+        <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexoBug</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -97,11 +97,6 @@ WIN7
       </tags>
   </entry>
   <entry>
-    <title>java的泛型</title>
-    <url>/2021/07/05/java%E7%9A%84%E6%B3%9B%E5%9E%8B/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>使用goolge cloud建设ssr</title>
     <url>/2019/12/29/%E4%BD%BF%E7%94%A8goolge-cloud%E5%BB%BA%E8%AE%BEssr/</url>
     <content><![CDATA[<p>yum -y install wget</p>
@@ -109,9 +104,9 @@ WIN7
 <p>chmod +x shadowsocksR.sh</p>
 <p>./shadowsocksR.sh 2&gt;&amp;1 | tee shadowsocksR.log</p>
 <p>———————————————————代码分割线————<br>输入每行回车<br>设置密码<br>13231端口<br>2<br>3<br>6</p>
-<img src="https://my-cloud-img.oss-cn-shenzhen.aliyuncs.com/WYCWF7DRAj12EHZgcMVbWyCbPDUIXAA3.gif" alt="image">]]></content>
+]]></content>
       <tags>
-        <tag>googel ssr</tag>
+        <tag>vpn</tag>
       </tags>
   </entry>
   <entry>
@@ -128,7 +123,7 @@ WIN7
   </entry>
   <entry>
     <title>生成分布式ID算法.md</title>
-    <url>/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95-md/</url>
+    <url>/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<p><strong>一、分布式ID</strong></p>
 <p><strong>1. 为什么需要分布式全局唯一ID？</strong></p>
 <p>在复杂的分布式系统中，往往需要对大量的数据和消息进行唯一标识。如在美团点评的金融、支付、餐饮、酒店等产品的系统中数据日渐增长，对<strong>数据分库分表后需要有一个唯一ID来标识</strong>某一条数据或消息，此时一个能够生成全局唯一ID的系统是非常必要的。</p>

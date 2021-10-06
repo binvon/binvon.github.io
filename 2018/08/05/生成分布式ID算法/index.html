@@ -21,7 +21,7 @@
   <meta name="description" content="一、分布式ID 1. 为什么需要分布式全局唯一ID？ 在复杂的分布式系统中，往往需要对大量的数据和消息进行唯一标识。如在美团点评的金融、支付、餐饮、酒店等产品的系统中数据日渐增长，对数据分库分表后需要有一个唯一ID来标识某一条数据或消息，此时一个能够生成全局唯一ID的系统是非常必要的。 2. 那么分布式ID生成需要满足哪些条件  全局唯一：分布式系统下必须要保证ID是全局唯一的，这是最基本的要求；">
 <meta property="og:type" content="article">
 <meta property="og:title" content="生成分布式ID算法.md">
-<meta property="og:url" content="http://blog.binvon.com/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95-md/index.html">
+<meta property="og:url" content="http://blog.binvon.com/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="bin">
 <meta property="og:description" content="一、分布式ID 1. 为什么需要分布式全局唯一ID？ 在复杂的分布式系统中，往往需要对大量的数据和消息进行唯一标识。如在美团点评的金融、支付、餐饮、酒店等产品的系统中数据日渐增长，对数据分库分表后需要有一个唯一ID来标识某一条数据或消息，此时一个能够生成全局唯一ID的系统是非常必要的。 2. 那么分布式ID生成需要满足哪些条件  全局唯一：分布式系统下必须要保证ID是全局唯一的，这是最基本的要求；">
 <meta property="og:locale" content="zh_CN">
@@ -33,7 +33,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95/2737C82A2841449F9A94F9806591BA7C.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://blog.binvon.com/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95-md/index.html">
+  <link rel="canonical" href="http://blog.binvon.com/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95/index.html">
   
     <link rel="alternate" href="/atom.xml" title="bin" type="application/atom+xml">
   
@@ -176,7 +176,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexoBug/">hexoBug</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java%E5%9F%BA%E7%A1%80/">java基础</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java%E5%9F%BA%E7%A1%80/">java基础</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -186,7 +186,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/googel-ssr/" rel="tag">googel ssr</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexoBug/" rel="tag">hexoBug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E5%9F%BA%E7%A1%80/" rel="tag">java基础</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java%E5%9F%BA%E7%A1%80/" rel="tag">java基础</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vpn/" rel="tag">vpn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -196,7 +196,7 @@
   <div class="widget">
     <h3 class="widget-title">标签云</h3>
     <div class="widget-body tagcloud">
-      <a href="/tags/googel-ssr/" style="font-size: 13px;">googel ssr</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/hexoBug/" style="font-size: 13px;">hexoBug</a> <a href="/tags/java%E5%9F%BA%E7%A1%80/" style="font-size: 14px;">java基础</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 13px;">分布式</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">服务器</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 13px;">环境配置</a>
+      <a href="/tags/hexo/" style="font-size: 14px;">hexo</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/java%E5%9F%BA%E7%A1%80/" style="font-size: 14px;">java基础</a> <a href="/tags/vpn/" style="font-size: 13px;">vpn</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 13px;">分布式</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 13px;">服务器</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 13px;">环境配置</a>
     </div>
   </div>
 
@@ -205,7 +205,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -217,31 +217,6 @@
     <div class="widget-body">
       <ul class="recent-post-list list-unstyled ">
         
-          <li>
-            
-            <div class="item-thumb">
-              <a href="/2021/07/05/java%E7%9A%84%E6%B3%9B%E5%9E%8B/" class="thumb">
-    
-    
-        <span class="thumb-image thumb-none"></span>
-    
-</a>
-
-            </div>
-            
-            <div class="item-inner">
-              <p class="item-category">
-                
-              </p>
-              <p class="item-title">
-                <a href="/2021/07/05/java%E7%9A%84%E6%B3%9B%E5%9E%8B/" class="title">java的泛型</a>
-              </p>
-              <p class="item-date">
-                <time datetime="2021-07-04T18:26:54.000Z" itemprop="datePublished">2021-07-05</time>
-              </p>
-            </div>
-          </li>
-          
           <li>
             
             <div class="item-thumb">
@@ -270,7 +245,7 @@
           <li>
             
             <div class="item-thumb">
-              <a href="/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95-md/" class="thumb">
+              <a href="/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95/" class="thumb">
     
     
         <span class="thumb-image thumb-none"></span>
@@ -284,7 +259,7 @@
                 <a class="category-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
               </p>
               <p class="item-title">
-                <a href="/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95-md/" class="title">生成分布式ID算法.md</a>
+                <a href="/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95/" class="title">生成分布式ID算法.md</a>
               </p>
               <p class="item-date">
                 <time datetime="2018-08-04T18:11:22.000Z" itemprop="datePublished">2018-08-05</time>
@@ -331,13 +306,38 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/hexoBug/">hexoBug</a>
+                <a class="category-link" href="/categories/hexo/">hexo</a>
               </p>
               <p class="item-title">
                 <a href="/2015/09/10/can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1/" class="title">can not read a block mapping entry; a multiline key may not be an implicit key at line 4, column 1:</a>
               </p>
               <p class="item-date">
                 <time datetime="2015-09-10T08:00:11.000Z" itemprop="datePublished">2015-09-10</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2015/08/05/BIO-NIO-AIO-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2015/08/05/BIO-NIO-AIO-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/" class="title">BIO,NIO,AIO 有什么区别</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2015-08-04T18:11:22.000Z" itemprop="datePublished">2015-08-05</time>
               </p>
             </div>
           </li>
@@ -355,7 +355,7 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-生成分布式ID算法-md" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-生成分布式ID算法" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
@@ -370,7 +370,7 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95-md/" class="article-date">
+	<a href="/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95/" class="article-date">
 	  <time datetime="2018-08-04T18:11:22.000Z" itemprop="datePublished">2018-08-05</time>
 	</a>
 </span>
@@ -389,7 +389,7 @@
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95-md/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
@@ -519,7 +519,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://blog.binvon.com/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95-md/" title="生成分布式ID算法.md" target="_blank" rel="external">http://blog.binvon.com/2018/08/05/生成分布式ID算法-md/</a>
+      <a href="http://blog.binvon.com/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95/" title="生成分布式ID算法.md" target="_blank" rel="external">http://blog.binvon.com/2018/08/05/生成分布式ID算法/</a>
     </li>
     
     <li class="post-copyright-license">
