@@ -1,191 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>java的泛型</title>
-      <link href="/2021/07/05/java%E7%9A%84%E6%B3%9B%E5%9E%8B/"/>
-      <url>/2021/07/05/java%E7%9A%84%E6%B3%9B%E5%9E%8B/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>使用goolge cloud建设ssr</title>
-      <link href="/2019/12/29/%E4%BD%BF%E7%94%A8goolge-cloud%E5%BB%BA%E8%AE%BEssr/"/>
-      <url>/2019/12/29/%E4%BD%BF%E7%94%A8goolge-cloud%E5%BB%BA%E8%AE%BEssr/</url>
-      
-        <content type="html"><![CDATA[<p>yum -y install wget</p><p>wget –no-check-certificate <a href="https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh">https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh</a></p><p>chmod +x shadowsocksR.sh</p><p>./shadowsocksR.sh 2&gt;&amp;1 | tee shadowsocksR.log</p><p>———————————————————代码分割线————<br>输入每行回车<br>设置密码<br>13231端口<br>2<br>3<br>6</p><img src="https://my-cloud-img.oss-cn-shenzhen.aliyuncs.com/WYCWF7DRAj12EHZgcMVbWyCbPDUIXAA3.gif" alt="image">]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> googel ssr </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>如何使用hexo搭建blog</title>
-      <link href="/2017/02/23/%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BAblog/"/>
-      <url>/2017/02/23/%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BAblog/</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://img.binvon.com/githubblog/img/timg.jpg" alt="image"><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/timg2.jpg" alt="image"><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/WYCWF7DRAj12EHZgcMVbWyCbPDUIXAA3.gif" alt="image"><br>测试图片</p>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>BIO,NIO,AIO 有什么区别</title>
+    <url>/2015/08/05/BIO-NIO-AIO-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<p>BIO （Blocking I/O）：同步阻塞I/O模式，数据的读取写入必须阻塞在一个线程内等待其完成。这里使用那个经典的烧开水例子，这里假设一个烧开水的场景，有一排水壶在烧开水，BIO的工作模式就是， 叫一个线程停留在一个水壶那，直到这个水壶烧开，才去处理下一个水壶。但是实际上线程在等待水壶烧开的时间段什么都没有做。</p>
+<p>NIO （New I/O）：同时支持阻塞与非阻塞模式，但这里我们以其同步非阻塞I/O模式来说明，那么什么叫做同步非阻塞？如果还拿烧开水来说，NIO的做法是叫一个线程不断的轮询每个水壶的状态，看看是否有水壶的状态发生了改变，从而进行下一步的操作。</p>
+<p>AIO （ Asynchronous I/O）：异步非阻塞I/O模型。异步非阻塞与同步非阻塞的区别在哪里？异步非阻塞无需一个线程去轮询所有IO操作的状态改变，在相应的状态改变后，系统会通知对应的线程来处理。对应到烧开水中就是，为每个水壶上面装了一个开关，水烧开之后，水壶会自动通知我水烧开了。</p>
+<p>进程中的IO调用步骤大致可以分为以下四步：</p>
+<p>进程向操作系统请求数据 ;</p>
+<p>操作系统把外部数据加载到内核的缓冲区中;</p>
+<p>操作系统把内核的缓冲区拷贝到进程的缓冲区 ;</p>
+<p>进程获得数据完成自己的功能 ;</p>
+<p>当操作系统在把外部数据放到进程缓冲区的这段时间（即上述的第二，三步），如果应用进程是挂起等待的，那么就是同步IO，反之，就是异步IO，也就是AIO 。</p>
+]]></content>
       <categories>
-          
-          <category> blog </category>
-          
+        <category>java基础</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>can not read a block mapping entry; a multiline key may not be an implicit key at line 4, column 1:</title>
-      <link href="/2015/09/10/can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1/"/>
-      <url>/2015/09/10/can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1/</url>
-      
-        <content type="html"><![CDATA[<p>无法读取块映射项;多行键可能不是第4行第1列的隐式键:</p><p>我是新建一篇博客时、编译出现的错误。其实我之前一直不配置tags的。这里的”:”后面还是要接上空格。</p><p><img src="https://img2020.cnblogs.com/blog/1993793/202010/1993793-20201028090355667-1242082136.png" alt="img"></p><p><img src="https://img2020.cnblogs.com/blog/1993793/202010/1993793-20201028090355970-1145804176.png" alt="img"></p>]]></content>
-      
-      
+      <tags>
+        <tag>java基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CentOS7查看最大线程数</title>
+    <url>/2015/07/10/CentOS7%E6%9F%A5%E7%9C%8B%E6%9C%80%E5%A4%A7%E7%BA%BF%E7%A8%8B%E6%95%B0/</url>
+    <content><![CDATA[<p>aaaa</p>
+]]></content>
       <categories>
-          
-          <category> hexoBug </category>
-          
+        <category>服务器</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> hexoBug </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>BIO,NIO,AIO 有什么区别</title>
-      <link href="/2015/08/05/BIO-NIO-AIO-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/"/>
-      <url>/2015/08/05/BIO-NIO-AIO-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
-      
-        <content type="html"><![CDATA[<p>BIO （Blocking I/O）：同步阻塞I/O模式，数据的读取写入必须阻塞在一个线程内等待其完成。这里使用那个经典的烧开水例子，这里假设一个烧开水的场景，有一排水壶在烧开水，BIO的工作模式就是， 叫一个线程停留在一个水壶那，直到这个水壶烧开，才去处理下一个水壶。但是实际上线程在等待水壶烧开的时间段什么都没有做。</p><p>NIO （New I/O）：同时支持阻塞与非阻塞模式，但这里我们以其同步非阻塞I/O模式来说明，那么什么叫做同步非阻塞？如果还拿烧开水来说，NIO的做法是叫一个线程不断的轮询每个水壶的状态，看看是否有水壶的状态发生了改变，从而进行下一步的操作。</p><p>AIO （ Asynchronous I/O）：异步非阻塞I/O模型。异步非阻塞与同步非阻塞的区别在哪里？异步非阻塞无需一个线程去轮询所有IO操作的状态改变，在相应的状态改变后，系统会通知对应的线程来处理。对应到烧开水中就是，为每个水壶上面装了一个开关，水烧开之后，水壶会自动通知我水烧开了。</p><p>进程中的IO调用步骤大致可以分为以下四步：</p><p>进程向操作系统请求数据 ;</p><p>操作系统把外部数据加载到内核的缓冲区中;</p><p>操作系统把内核的缓冲区拷贝到进程的缓冲区 ;</p><p>进程获得数据完成自己的功能 ;</p><p>当操作系统在把外部数据放到进程缓冲区的这段时间（即上述的第二，三步），如果应用进程是挂起等待的，那么就是同步IO，反之，就是异步IO，也就是AIO 。</p>]]></content>
-      
-      
+      <tags>
+        <tag>服务器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JDK安装与环境变量配置</title>
+    <url>/2015/07/10/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h5>工具/原料</h5>
+JDK1.7.0<br>
+WIN7
+<h5>方法/步骤</h5>
+一、安装JDK 选择安装目录 安装过程中会出现两次 安装提示 。第一次是安装 jdk ，第二次是安装 jre 。
+建议两个都安装在同一个java文件夹中的不同文件夹中。
+
+<p>（不能都安装在java文件夹的根目录下，jdk和jre安装在同一文件夹会出错）<br>如下图所示<br><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk1.png" alt="安装"><br><br></p>
+<p>二、1：安装jdk 随意选择目录 只需把默认安装目录 \java 之前的目录修改即可</p>
+<p>2：安装jre→更改→ \java 之前目录和安装 jdk 目录相同即可</p>
+<p>注：若无安装目录要求，可全默认设置。无需做任何修改，两次均直接点下一步。<br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk2.png" alt="安装"><br><br><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk3.png" alt="安装"><br><br></p>
+<p>三、安装完JDK后配置环境变量  计算机→属性→高级系统设置→高级→环境变量<br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk4.png" alt="安装"><br><br></p>
+<p>四、系统变量→新建 JAVA_HOME 变量 。</p>
+<p>变量值填写jdk的安装目录（本人是 E:\Java\jdk1.7.0)<br><br>五、系统变量→寻找 Path 变量→编辑</p>
+<p>在变量值最后输入 %JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;</p>
+<p>（注意原来Path的变量值末尾有没有;号，如果没有，先输入；号再输入上面的代码）<br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk5.png" alt="安装"><br><br></p>
+<p>六、系统变量→新建 CLASSPATH 变量</p>
+<p>变量值填写   .;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar（注意最前面有一点）</p>
+<p>系统变量配置完毕</p>
+<p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk6.png" alt="安装"><br><br></p>
+<p>七、检验是否配置成功 运行cmd 输入 java -version （java 和 -version 之间有空格）</p>
+<p>若如图所示 显示版本信息 则说明安装和配置成功。</p>
+<p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk7.png" alt="安装"><br><br></p>
+]]></content>
       <categories>
-          
-          <category> java基础 </category>
-          
+        <category>java基础</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> java基础 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>continue,break,return有什么区别</title>
-      <link href="/2015/07/12/continue-break-return%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/"/>
-      <url>/2015/07/12/continue-break-return%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
-      
-        <content type="html"><![CDATA[<p>   1、return ：直接跳出当前的方法,返回到该调用的方法的语句处,继续执行</p><p>   2、break：在循环体内结束整个循环过程</p><p>   3、continue ：结束本次的循环，直接进行下一次的循环</p>]]></content>
-      
-      
+      <tags>
+        <tag>java基础</tag>
+        <tag>环境配置</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>can not read a block mapping entry; a multiline key may not be an implicit key at line 4, column 1:</title>
+    <url>/2015/09/10/can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1/</url>
+    <content><![CDATA[<p>无法读取块映射项;多行键可能不是第4行第1列的隐式键:</p>
+<p>我是新建一篇博客时、编译出现的错误。其实我之前一直不配置tags的。这里的”:”后面还是要接上空格。</p>
+<p><img src="https://img2020.cnblogs.com/blog/1993793/202010/1993793-20201028090355667-1242082136.png" alt="img"></p>
+<p><img src="https://img2020.cnblogs.com/blog/1993793/202010/1993793-20201028090355970-1145804176.png" alt="img"></p>
+]]></content>
       <categories>
-          
-          <category> java基础 </category>
-          
+        <category>hexoBug</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> java基础 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>CentOS7查看最大线程数</title>
-      <link href="/2015/07/10/CentOS7%E6%9F%A5%E7%9C%8B%E6%9C%80%E5%A4%A7%E7%BA%BF%E7%A8%8B%E6%95%B0/"/>
-      <url>/2015/07/10/CentOS7%E6%9F%A5%E7%9C%8B%E6%9C%80%E5%A4%A7%E7%BA%BF%E7%A8%8B%E6%95%B0/</url>
-      
-        <content type="html"><![CDATA[<p>aaaa</p>]]></content>
-      
-      
+      <tags>
+        <tag>hexoBug</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>continue,break,return有什么区别</title>
+    <url>/2015/07/12/continue-break-return%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<p>   1、return ：直接跳出当前的方法,返回到该调用的方法的语句处,继续执行</p>
+<p>   2、break：在循环体内结束整个循环过程</p>
+<p>   3、continue ：结束本次的循环，直接进行下一次的循环</p>
+]]></content>
       <categories>
-          
-          <category> 服务器 </category>
-          
+        <category>java基础</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 服务器 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>JDK安装与环境变量配置</title>
-      <link href="/2015/07/10/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/"/>
-      <url>/2015/07/10/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/</url>
-      
-        <content type="html"><![CDATA[<h5>工具/原料</h5>JDK1.7.0<br>WIN7<h5>方法/步骤</h5>一、安装JDK 选择安装目录 安装过程中会出现两次 安装提示 。第一次是安装 jdk ，第二次是安装 jre 。建议两个都安装在同一个java文件夹中的不同文件夹中。<p>（不能都安装在java文件夹的根目录下，jdk和jre安装在同一文件夹会出错）<br>如下图所示<br><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk1.png" alt="安装"><br><br></p><p>二、1：安装jdk 随意选择目录 只需把默认安装目录 \java 之前的目录修改即可</p><p>2：安装jre→更改→ \java 之前目录和安装 jdk 目录相同即可</p><p>注：若无安装目录要求，可全默认设置。无需做任何修改，两次均直接点下一步。<br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk2.png" alt="安装"><br><br><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk3.png" alt="安装"><br><br></p><p>三、安装完JDK后配置环境变量  计算机→属性→高级系统设置→高级→环境变量<br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk4.png" alt="安装"><br><br></p><p>四、系统变量→新建 JAVA_HOME 变量 。</p><p>变量值填写jdk的安装目录（本人是 E:\Java\jdk1.7.0)<br><br>五、系统变量→寻找 Path 变量→编辑</p><p>在变量值最后输入 %JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;</p><p>（注意原来Path的变量值末尾有没有;号，如果没有，先输入；号再输入上面的代码）<br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk5.png" alt="安装"><br><br></p><p>六、系统变量→新建 CLASSPATH 变量</p><p>变量值填写   .;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar（注意最前面有一点）</p><p>系统变量配置完毕</p><p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk6.png" alt="安装"><br><br></p><p>七、检验是否配置成功 运行cmd 输入 java -version （java 和 -version 之间有空格）</p><p>若如图所示 显示版本信息 则说明安装和配置成功。</p><p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk7.png" alt="安装"><br><br></p>]]></content>
-      
-      
+      <tags>
+        <tag>java基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java的泛型</title>
+    <url>/2021/07/05/java%E7%9A%84%E6%B3%9B%E5%9E%8B/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>使用goolge cloud建设ssr</title>
+    <url>/2019/12/29/%E4%BD%BF%E7%94%A8goolge-cloud%E5%BB%BA%E8%AE%BEssr/</url>
+    <content><![CDATA[<p>yum -y install wget</p>
+<p>wget –no-check-certificate <a href="https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh">https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh</a></p>
+<p>chmod +x shadowsocksR.sh</p>
+<p>./shadowsocksR.sh 2&gt;&amp;1 | tee shadowsocksR.log</p>
+<p>———————————————————代码分割线————<br>输入每行回车<br>设置密码<br>13231端口<br>2<br>3<br>6</p>
+<img src="https://my-cloud-img.oss-cn-shenzhen.aliyuncs.com/WYCWF7DRAj12EHZgcMVbWyCbPDUIXAA3.gif" alt="image">]]></content>
+      <tags>
+        <tag>googel ssr</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何使用hexo搭建blog</title>
+    <url>/2017/02/23/%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BAblog/</url>
+    <content><![CDATA[<p><img src="https://img.binvon.com/githubblog/img/timg.jpg" alt="image"><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/timg2.jpg" alt="image"><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/WYCWF7DRAj12EHZgcMVbWyCbPDUIXAA3.gif" alt="image"><br>测试图片</p>
+]]></content>
       <categories>
-          
-          <category> java基础 </category>
-          
+        <category>blog</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> java基础 </tag>
-            
-            <tag> 环境配置 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
 </search>
