@@ -33,6 +33,35 @@
       </tags>
   </entry>
   <entry>
+    <title>can not read a block mapping entry; a multiline key may not be an implicit key at line 4, column 1:</title>
+    <url>/2015/09/10/can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1/</url>
+    <content><![CDATA[<p>无法读取块映射项;多行键可能不是第4行第1列的隐式键:</p>
+<p>我是新建一篇博客时、编译出现的错误。其实我之前一直不配置tags的。这里的”:”后面还是要接上空格。</p>
+<p><img src="https://img2020.cnblogs.com/blog/1993793/202010/1993793-20201028090355667-1242082136.png" alt="img"></p>
+<p><img src="https://img2020.cnblogs.com/blog/1993793/202010/1993793-20201028090355970-1145804176.png" alt="img"></p>
+]]></content>
+      <categories>
+        <category>hexoBug</category>
+      </categories>
+      <tags>
+        <tag>hexoBug</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>continue,break,return有什么区别</title>
+    <url>/2015/07/12/continue-break-return%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<p>   1、return ：直接跳出当前的方法,返回到该调用的方法的语句处,继续执行</p>
+<p>   2、break：在循环体内结束整个循环过程</p>
+<p>   3、continue ：结束本次的循环，直接进行下一次的循环</p>
+]]></content>
+      <categories>
+        <category>java基础</category>
+      </categories>
+      <tags>
+        <tag>java基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JDK安装与环境变量配置</title>
     <url>/2015/07/10/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h5>工具/原料</h5>
@@ -65,35 +94,6 @@ WIN7
       <tags>
         <tag>java基础</tag>
         <tag>环境配置</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>can not read a block mapping entry; a multiline key may not be an implicit key at line 4, column 1:</title>
-    <url>/2015/09/10/can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1/</url>
-    <content><![CDATA[<p>无法读取块映射项;多行键可能不是第4行第1列的隐式键:</p>
-<p>我是新建一篇博客时、编译出现的错误。其实我之前一直不配置tags的。这里的”:”后面还是要接上空格。</p>
-<p><img src="https://img2020.cnblogs.com/blog/1993793/202010/1993793-20201028090355667-1242082136.png" alt="img"></p>
-<p><img src="https://img2020.cnblogs.com/blog/1993793/202010/1993793-20201028090355970-1145804176.png" alt="img"></p>
-]]></content>
-      <categories>
-        <category>hexoBug</category>
-      </categories>
-      <tags>
-        <tag>hexoBug</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>continue,break,return有什么区别</title>
-    <url>/2015/07/12/continue-break-return%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<p>   1、return ：直接跳出当前的方法,返回到该调用的方法的语句处,继续执行</p>
-<p>   2、break：在循环体内结束整个循环过程</p>
-<p>   3、continue ：结束本次的循环，直接进行下一次的循环</p>
-]]></content>
-      <categories>
-        <category>java基础</category>
-      </categories>
-      <tags>
-        <tag>java基础</tag>
       </tags>
   </entry>
   <entry>
