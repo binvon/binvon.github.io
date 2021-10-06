@@ -1,249 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>BIO,NIO,AIO 有什么区别</title>
-    <url>/2015/08/05/BIO-NIO-AIO-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<p>BIO （Blocking I/O）：同步阻塞I/O模式，数据的读取写入必须阻塞在一个线程内等待其完成。这里使用那个经典的烧开水例子，这里假设一个烧开水的场景，有一排水壶在烧开水，BIO的工作模式就是， 叫一个线程停留在一个水壶那，直到这个水壶烧开，才去处理下一个水壶。但是实际上线程在等待水壶烧开的时间段什么都没有做。</p>
-<p>NIO （New I/O）：同时支持阻塞与非阻塞模式，但这里我们以其同步非阻塞I/O模式来说明，那么什么叫做同步非阻塞？如果还拿烧开水来说，NIO的做法是叫一个线程不断的轮询每个水壶的状态，看看是否有水壶的状态发生了改变，从而进行下一步的操作。</p>
-<p>AIO （ Asynchronous I/O）：异步非阻塞I/O模型。异步非阻塞与同步非阻塞的区别在哪里？异步非阻塞无需一个线程去轮询所有IO操作的状态改变，在相应的状态改变后，系统会通知对应的线程来处理。对应到烧开水中就是，为每个水壶上面装了一个开关，水烧开之后，水壶会自动通知我水烧开了。</p>
-<p>进程中的IO调用步骤大致可以分为以下四步：</p>
-<p>进程向操作系统请求数据 ;</p>
-<p>操作系统把外部数据加载到内核的缓冲区中;</p>
-<p>操作系统把内核的缓冲区拷贝到进程的缓冲区 ;</p>
-<p>进程获得数据完成自己的功能 ;</p>
-<p>当操作系统在把外部数据放到进程缓冲区的这段时间（即上述的第二，三步），如果应用进程是挂起等待的，那么就是同步IO，反之，就是异步IO，也就是AIO 。</p>
-]]></content>
+<search> 
+  
+  
+    
+    <entry>
+      <title>使用goolge cloud建设ssr</title>
+      <link href="/2019/12/29/%E4%BD%BF%E7%94%A8goolge-cloud%E5%BB%BA%E8%AE%BEssr/"/>
+      <url>/2019/12/29/%E4%BD%BF%E7%94%A8goolge-cloud%E5%BB%BA%E8%AE%BEssr/</url>
+      
+        <content type="html"><![CDATA[<p>yum -y install wget</p><p>wget –no-check-certificate <a href="https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh">https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh</a></p><p>chmod +x shadowsocksR.sh</p><p>./shadowsocksR.sh 2&gt;&amp;1 | tee shadowsocksR.log</p><p>———————————————————代码分割线————<br>输入每行回车<br>设置密码<br>13231端口<br>2<br>3<br>6</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> vpn </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>生成分布式ID算法.md</title>
+      <link href="/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95/"/>
+      <url>/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<p><strong>一、分布式ID</strong></p><p><strong>1. 为什么需要分布式全局唯一ID？</strong></p><p>在复杂的分布式系统中，往往需要对大量的数据和消息进行唯一标识。如在美团点评的金融、支付、餐饮、酒店等产品的系统中数据日渐增长，对<strong>数据分库分表后需要有一个唯一ID来标识</strong>某一条数据或消息，此时一个能够生成全局唯一ID的系统是非常必要的。</p><p><strong>2. 那么分布式ID生成需要满足哪些条件</strong></p><ul><li>全局唯一：分布式系统下必须要保证ID是全局唯一的，这是最基本的要求；</li><li>高性能：高可用低延时，ID生成响应要快，否则反倒会成为业务瓶颈；</li><li>高可用：100%的可用性是骗人的，但是也要无限接近于100%的可用；</li><li>好接入：要秉着拿来即用的设计原则，在系统设计和实现上要尽可能的简单；</li><li>趋势递增：由于多数公司使用的是MySQL InnoDB作为存储引擎，所以ID最好趋势递增。</li></ul><p><strong>二、一般通用方案</strong></p><p><strong>1. UUID</strong></p><p>String uuid = UUID.randomUUID().toString().replaceAll(“-“,””);</p><ul><li>UUID的标准形式：包含32个16进制数字，以连字号分为五段，形式为8-4-4-12的36个字符；</li><li>优点：代码简单，性能非常高（本地生成，没有网络消耗），保证唯一（重复概率极低可以忽略）；</li><li>缺点：生成的ID是无序的字符串，无法保证趋势递增，且没有一定的业务含义；还有就是长度过长入且无序，会严重消耗MySQL数据库性能。</li></ul><p>为什么无序的UUID会导致入库性能变差呢？</p><ul><li><strong>作为主键过长</strong>，MySQL官方有明确的建议主键尽量越短越好，36个字符长度的UUID不符合要求；</li><li><strong>字符串且无序</strong>，MySQL InnoDB引擎的索引底层数据结构是B+树，每一次新的UUID插入表，都会对主键底层的B+树索引进行很大的修改，插入完全无序，不但会导致一些中间节点产生分裂，也会白白创造出很多不饱和的节点，这样大大降低了数据库插入的性能，还会增加读取磁盘的次数。</li></ul><p><strong>2. 数据库自增主键</strong></p><ul><li>单点模式自增ID</li></ul><p>在分布式里，数据库的自增ID机制的主要原理是：数据库自增ID和MySql数据库的replace into实现的。</p><p>replace into 跟 insert 功能类似，不同点在于：replace into首先尝试插入数据列表中，如果发现表中已经有此行数据（根据主键或唯一索引）判断是否存在，若有则先删除再插入，否则直接插入新数据。REPLACE INTO的含义是插入一条记录，如果表中唯一索引的值遇到冲突，则替换老数据。</p><p>CREATE TABLE t_test ( id bigint(20) unsigned not null auto_increment primary key, stub char(1) not null default ‘’, unique key stub (stub) ) select * from t_test; replace into t_test (stub) values(‘a’); select last_insert_id();</p><p>当我们需要一个ID时，向表中插入一条记录返回主键ID即可。此种方式优点：实现简单，ID单调自增，数值类型查询速度快；缺点：1）强依赖DB，存在单点问题，一旦数据库宕机，整个业务不可用；2）单点数据库压力大，无法扛住高并发场景；3）信息安全问题，比如暴露订单量等。</p><ul><li>集群式自增ID</li></ul><p>对上面单点模式做优化，改成集群模式自增ID，也就是多个MySQL实例各自生成自增ID。要设置起始值和自增步长，保证生成ID不会重复。</p><ul><li>优点：解决了ID生成的单点问题，同时平衡了负载；</li><li>缺点：系统后续水平扩容比较困难，增加机器可能要修改步长，起始值也不容易设置。数据库压力还是很大，每次获取ID都得读写一次数据库，非常影响性能，依旧无法满足高并发场景。</li></ul><p><strong>3. 基于Redis生成全局ID策略</strong></p><p>因为Redis是单线程的天生保证原子性， 利用Redis的<strong>incr</strong>命令实现ID的原子性自增。</p><p>127.0.0.1:6379&gt; set seq_id 1     // 初始化自增ID为1 OK 127.0.0.1:6379&gt; incr seq_id      // 增加1，并返回递增后的数值 (integer) 2</p><p>集群分布式，可以使用Redis集群来获取更高的吞吐量，注意：在Redis集群情况下，同样和MySql一样需要设置不同的增长步长，同时key一定要设置有效期。</p><p>假如一个集群中有5台Redis，可以初始化每台Redis的值分别是1，2，3，4，5 然后步长都是5，每个redis生成的ID为：</p><p>​    A：1、6、11、16、21 B：2、7、12、17、22 C：3、8、13、18、23 D：4、9、14、19、24 E：5、10、15、20、25</p><p>优点：效率高，不依赖数据库，可以扛住高并发场景；</p><p>缺点：要考虑Redis的持久化问题，Redis支持RDB和AOF两种持久化的方式。</p><ul><li>RDB会定时打一个快照，如果打完快照后，连续自增了几次，还没来得及做下一次快照持久化，此时Redis挂掉了，重启Redis后会出现ID重复的情况。</li><li>AOF会对每条写命令进行持久化，即使Redis挂掉了也不会出现ID重复的情况，但是由于incr命令的特殊性，会导致Redis重启恢复数据时间过长。</li></ul><p><strong>三、雪花算法 - Snowflake</strong></p><p><strong>1. 概述</strong></p><p>Twitter的分布式ID生成算法，开源后广受国内大厂的好评，经测试snowflake每秒能够生产26万个自增可排序的ID。</p><p>特点：</p><ul><li>生成结果是一个64bit大小的Long类型整数；</li><li>生成ID能够按照时间有序生成；</li><li>不会产生ID碰撞并且效率较高。</li></ul><p><strong>2. 结构</strong></p><p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95/2737C82A2841449F9A94F9806591BA7C.png" alt="雪花算法"></p><p>结构：符号位（1bit）+ 时间戳（41bit）+ 机器ID（5bit）+ 数据中心（5bit）+ 自增序列号（12bit）</p><ul><li>符号位：Java中Long的最高位是符号位代表正负，正数是0，负数是1，一般生成ID都为正数，所以默认为0；</li><li>时间戳：毫秒级的时间，不建议存当前时间戳，而是用（当前时间戳 - 固定开始时间戳）的差值，可以使产生的ID从更小的值开始；41位的时间戳可以使用69年，(1L &lt;&lt; 41) / (1000L 60 60 24 365) = 69年；</li><li>工作机器ID：用来记录工作机器ID。可以部署 2^{10} = 1024个节点，包括5位datacenterId和5位workerId。可以灵活配置，机房或者机器号组合都可以；</li><li>序列号：自增值，支持同一毫秒内同一个节点（同一个机器）可以生成4096个ID。</li></ul><p>因为时间戳是递增的，序列号也是递增的，所以雪花算法可以保证所有生成的ID按时间趋势递增，整个分布式系统内不会产生重复ID（因为有 datacenterId 和 workId来做区分）。</p><p><strong>3. 源码</strong></p><p>Java版(Hutool)：</p><p>/** * Twitter的Snowflake 算法<br> * 分布式系统中，有一些需要使用全局唯一ID的场景，有些时候我们希望能使用一种简单一些的ID，并且希望ID能够按照时间有序生成。 * * <p> * snowflake的结构如下(每部分用-分开):<br> * * <pre> * 0 - 0000000000 0000000000 0000000000 0000000000 0 - 00000 - 00000 - 000000000000 * </pre> * <p> * 第一位为未使用(符号位表示正数)，接下来的41位为毫秒级时间(41位的长度可以使用69年)<br> * 然后是5位datacenterId和5位workerId(10位的长度最多支持部署1024个节点）<br> * 最后12位是毫秒内的计数（12位的计数顺序号支持每个节点每毫秒产生4096个ID序号） * <p> * 并且可以通过生成的id反推出生成时间,datacenterId和workerId * <p> * 参考：<a href="http://www.cnblogs.com/relucent/p/4955340.html">http://www.cnblogs.com/relucent/p/4955340.html</a> </p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">`<span class="comment">/* * @author Looly `</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">`* @since 3.0.1 */</span> `</span><br><span class="line">`<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Snowflake</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;     <span class="comment">// 开始时间戳    </span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> twepoch;    <span class="comment">// 机器标识位数    </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> workerIdBits = <span class="number">5L</span>;    <span class="comment">// 数据中心标识位数    </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> dataCenterIdBits = <span class="number">5L</span>;  <span class="comment">// 最大支持机器节点数0~31，一共32个    最大支持数据中心节点数0~31，一共32个    </span></span><br><span class="line">   <span class="meta">@SuppressWarnings(&#123;&quot;PointlessBitwiseExpression&quot;, &quot;FieldCanBeLocal&quot;&#125;)</span>    </span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> maxWorkerId = -<span class="number">1L</span> ^ (-<span class="number">1L</span> &lt;&lt; workerIdBits);          <span class="meta">@SuppressWarnings(&#123;&quot;PointlessBitwiseExpression&quot;, &quot;FieldCanBeLocal&quot;&#125;)</span>    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> maxDataCenterId = -<span class="number">1L</span> ^ (-<span class="number">1L</span> &lt;&lt; dataCenterIdBits);    <span class="comment">// 序列号12位    </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> sequenceBits = <span class="number">12L</span>;    <span class="comment">// 机器节点左移12位    </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> workerIdShift = sequenceBits;    <span class="comment">// 数据中心节点左移17位 </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> dataCenterIdShift = sequenceBits + workerIdBits;    <span class="comment">// 时间毫秒数左移22位    </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> timestampLeftShift = sequenceBits + workerIdBits + dataCenterIdBits;    </span><br><span class="line">    <span class="meta">@SuppressWarnings(&#123;&quot;PointlessBitwiseExpression&quot;, &quot;FieldCanBeLocal&quot;&#125;)</span>    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> sequenceMask = -<span class="number">1L</span> ^ (-<span class="number">1L</span> &lt;&lt; sequenceBits);<span class="comment">// 4095</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> workerId;    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> dataCenterId;    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">boolean</span> useSystemClock;    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> sequence = <span class="number">0L</span>;    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> lastTimestamp = -<span class="number">1L</span>;     </span><br><span class="line">    <span class="comment">/**     * 构造     *     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> workerId     终端ID     *</span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> dataCenterId 数据中心ID     */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Snowflake</span><span class="params">(<span class="keyword">long</span> workerId, <span class="keyword">long</span> dataCenterId)</span> </span>&#123;        </span><br><span class="line">        <span class="keyword">this</span>(workerId, dataCenterId, <span class="keyword">false</span>);    </span><br><span class="line">    &#125;     <span class="comment">/**     * 构造     *     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> workerId         终端ID     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> dataCenterId     数据中心ID     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> isUseSystemClock 是否使用</span></span><br><span class="line"><span class="comment">    &#123;<span class="doctag">@link</span> SystemClock&#125; 获取当前时间戳     */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Snowflake</span><span class="params">(<span class="keyword">long</span> workerId, <span class="keyword">long</span> dataCenterId, <span class="keyword">boolean</span> isUseSystemClock)</span> </span>&#123;        <span class="keyword">this</span>(<span class="keyword">null</span>, workerId, dataCenterId, isUseSystemClock);    &#125;     </span><br><span class="line">    <span class="comment">/**     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> epochDate        初始化时间起点（null表示默认起始日期）,后期修改会导致id重复,如果要修改连workerId dataCenterId，慎用     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> workerId         工作机器节点id * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> dataCenterId     数据中心id     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> isUseSystemClock 是否使用&#123;<span class="doctag">@link</span> SystemClock&#125; 获取当前时间戳     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@since</span> 5.1.3     */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Snowflake</span><span class="params">(Date epochDate, <span class="keyword">long</span> workerId, <span class="keyword">long</span> dataCenterId, <span class="keyword">boolean</span> isUseSystemClock)</span> </span>&#123;        </span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != epochDate) &#123;            </span><br><span class="line">            <span class="keyword">this</span>.twepoch = epochDate.getTime();        </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;            <span class="comment">// Thu, 04 Nov 2010 01:42:54 GMT            </span></span><br><span class="line">            <span class="keyword">this</span>.twepoch = <span class="number">1288834974657L</span>;        &#125;        </span><br><span class="line">        <span class="keyword">if</span> (workerId &gt; maxWorkerId || workerId &lt; <span class="number">0</span>) &#123;            </span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(String.format(<span class="string">&quot;worker Id can&#x27;t be greater than &#123;&#125;&#125; or less than 0&quot;</span>, maxWorkerId));        </span><br><span class="line">        &#125;        </span><br><span class="line">        <span class="keyword">if</span> (dataCenterId &gt; maxDataCenterId || dataCenterId &lt; <span class="number">0</span>) &#123;            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(String.format(<span class="string">&quot;datacenter Id can&#x27;t be greater than &#123;&#125; or less than 0&quot;</span>, maxDataCenterId));        &#125;        </span><br><span class="line">        <span class="keyword">this</span>.workerId = workerId;        <span class="keyword">this</span>.dataCenterId = dataCenterId;        <span class="keyword">this</span>.useSystemClock = isUseSystemClock;    &#125;     </span><br><span class="line">    <span class="comment">/**     * 根据Snowflake的ID，获取机器id     *     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> id snowflake算法生成的id     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@return</span> 所属机器的id     */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getWorkerId</span><span class="params">(<span class="keyword">long</span> id)</span> </span>&#123;        </span><br><span class="line">        <span class="keyword">return</span> id &gt;&gt; workerIdShift &amp; ~(-<span class="number">1L</span> &lt;&lt; workerIdBits);    &#125;     </span><br><span class="line">    <span class="comment">/**     * 根据Snowflake的ID，获取数据中心id     *     *</span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> id snowflake算法生成的id     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@return</span> 所属数据中心     */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getDataCenterId</span><span class="params">(<span class="keyword">long</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id &gt;&gt; dataCenterIdShift &amp; ~(-<span class="number">1L</span> &lt;&lt; dataCenterIdBits);    </span><br><span class="line">    &#125;     </span><br><span class="line">    <span class="comment">/**     * 根据Snowflake的ID，获取生成时间     *     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> id snowflake算法生成的id     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@return</span> 生成的时间     */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getGenerateDateTime</span><span class="params">(<span class="keyword">long</span> id)</span> </span>&#123;        </span><br><span class="line">        <span class="keyword">return</span> (id &gt;&gt; timestampLeftShift &amp; ~(-<span class="number">1L</span> &lt;&lt; <span class="number">41L</span>)) + twepoch;    &#125;     </span><br><span class="line">    <span class="comment">/**     * 下一个ID     *     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@return</span> ID     */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">long</span> <span class="title">nextId</span><span class="params">()</span> </span>&#123;        </span><br><span class="line">        <span class="keyword">long</span> timestamp = genTime();        </span><br><span class="line">        <span class="keyword">if</span> (timestamp &lt; lastTimestamp) &#123;            </span><br><span class="line">            <span class="comment">// 如果服务器时间有问题(时钟后退) 报错。            </span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(String.format(<span class="string">&quot;Clock moved backwards. Refusing to generate id for &#123;&#125;ms&quot;</span>, (lastTimestamp - timestamp)));        &#125;       </span><br><span class="line">        <span class="keyword">if</span> (lastTimestamp == timestamp) &#123;            sequence = (sequence + <span class="number">1</span>) &amp; sequenceMask;            </span><br><span class="line">        <span class="keyword">if</span> (sequence == <span class="number">0</span>) &#123;                </span><br><span class="line">            timestamp = tilNextMillis(lastTimestamp);            &#125;       </span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;            sequence = <span class="number">0L</span>;        &#125;         </span><br><span class="line">        lastTimestamp = timestamp;         </span><br><span class="line">        <span class="keyword">return</span> ((timestamp - twepoch) &lt;&lt; timestampLeftShift) | (dataCenterId &lt;&lt; dataCenterIdShift) | (workerId &lt;&lt; workerIdShift) | sequence;    &#125;     </span><br><span class="line">    <span class="comment">/**     * 下一个ID（字符串形式）     *     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@return</span> ID 字符串形式     */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">nextIdStr</span><span class="params">()</span> </span>&#123;        <span class="keyword">return</span> Long.toString(nextId());    </span><br><span class="line">                              &#125;     <span class="comment">// ------------------------------------------------------------------------------------------------------------------------------------ </span></span><br><span class="line">    Private method start     </span><br><span class="line">        <span class="comment">/**     * 循环等待下一个时间     *     * </span></span><br><span class="line"><span class="comment">        <span class="doctag">@param</span> lastTimestamp 上次记录的时间     * </span></span><br><span class="line"><span class="comment">        <span class="doctag">@return</span> 下一个时间     */</span>    </span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">long</span> <span class="title">tilNextMillis</span><span class="params">(<span class="keyword">long</span> lastTimestamp)</span> </span>&#123;        <span class="keyword">long</span> timestamp = genTime();        </span><br><span class="line">         <span class="keyword">while</span> (timestamp &lt;= lastTimestamp) &#123;            timestamp = genTime();        &#125;        <span class="keyword">return</span> timestamp;    &#125;     </span><br><span class="line">    <span class="comment">/**     * 生成时间戳     *     * <span class="doctag">@return</span> 时间戳     */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">long</span> <span class="title">genTime</span><span class="params">()</span> </span>&#123;        <span class="keyword">return</span> <span class="keyword">this</span>.useSystemClock ? SystemClock.now() : System.currentTimeMillis();    &#125; &#125;`</span><br></pre></td></tr></table></figure><p><strong>4. 工程落地经验</strong></p><p>分布式整合雪花算法：</p><p>IdGenerateInvoker.java</p><p>/** * 分布式环境下数据库主键的ID生成器 * 实现了对分布式友好的Snowflake算法，并且会在Spring IOC容器初始化的时候注册成为单例Bean. * 如果需要自定义生成策略，请实现本接口并将其实例注册到容器中，并在{@link PrimaryKey}的strategy属性指定. * <em>/ public interface IdGenerateInvoker {     /</em>*     * 获取下一个永不重复的id.     *     * @return id.     */    Serializable nextId(); }</p><p>SnowFlakeIdGenerateInvoker.java</p><p>/** * ======分布式数据库主键ID生成器基于SnowFlake算法的实现. * 本实现类的对象将会在程序启动的时候自动在Spring IOC容器中注册为Bean. * 如果想在您的持久化过程中由系统自动设置主键字段的值，只需要在具体的POJO字段上添加@PrimaryKey注解，详见{@link PrimaryKey}. * 其默认打开，并且在未指定具体id生成算法的前提下，它将自动使用SnowFlake算法生成id,在持久化之前自动设置值. * <p> * SnowFlake算法的实现依赖于workerId和dataCenterId两个值的，系统默认使用5L作为其初始值. * 如果您想要在分布式环境使用本算法的实现，建议您在application.yml中配置这2个属性的值. */ @Component public class SnowFlakeIdGenerateInvoker implements IdGenerateInvoker {     @Autowired    private SnowFlakeConfig snowFlakeConfig;     private Snowflake snowflake;     @PostConstruct    public void init() {        long wokerid = snowFlakeConfig.getWorkerId();        long dataCenterId = snowFlakeConfig.getDataCenterId();        this.snowflake = new Snowflake(wokerid, dataCenterId);    }     @Override    public synchronized Serializable nextId() {        return snowflake.nextId();    } }</p><p>SnowFlakeConfig.java</p><ul><li>公司workerId使用位长为8位，取的是机器IP地址后三位；</li><li>dataCenterId使用位长为两位，配置在配置文件中。</li></ul><p>/** * 关于SnowFlake的配置. * WorkerId和DataCenterId的值请保证集群中的每个节点不相同. * WorkerId取ip地址最后三位，dataCenterId配置在properties. */ @Component @Validated @Slf4j @ConfigurationProperties(prefix = “snowflake”) public class SnowFlakeConfig {     @Value(“${spring.application.name}”)    private String appName;     private long workerId;     @NotNull    private long dataCenterId;     @PostConstruct    public void init() {        try {            String ipAddr = NetUtil.getHostIpAddr();            log.info(“current ip :{}”, ipAddr);            if (!StringUtils.isEmpty(ipAddr)) {                String[] ipStep = ipAddr.split(“\.”);                this.workerId = Long.valueOf(ipStep[3]);            } else {                log.warn(“ip address parse error.”);            }        } catch (Exception e) {            throw new RuntimeException(e);        }        log.info(“Snowflake:[workerId:{} from ip address tail, dataCenterId:{} from properties] of micro service [{}] has been initialized.”                , workerId, dataCenterId, appName == null ? “” : appName.toUpperCase());    }     public long getWorkerId() {        return workerId;    }     public void setWorkerId(long workerId) {        this.workerId = workerId;    }     public long getDataCenterId() {        return dataCenterId;    }     public void setDataCenterId(long dataCenterId) {        this.dataCenterId = dataCenterId;    } }</p><p>application.properties</p><p>spring.application.name=ncs-case # snowflake配置 #snowflake.worker-id= snowflake.data-center-id=2</p><p><strong>5. 雪花算法优缺点</strong></p><p>优点：</p><ul><li>毫秒数在高位，自增序列在低位，整个ID都是趋势递增的；</li><li>不依赖数据库等第三方系统，以服务的方式部署，稳定性更高，生成ID的性能也是非常高的；</li><li>可以根据自身业务特性分配bit位，非常灵活。</li></ul><p>缺点：</p><ul><li>依赖机器时钟，如果机器时钟回拨，会导致重复ID生成；</li><li>在单机上是递增的，但是由于设计到分布式环境，每台机器上的时钟不可能完全同步，有时候会出现不是全局递增的情况（此缺点可以认为无所谓，一般分布式ID只要求趋势递增，并不会严格要求递增，90%的需求都只要求趋势递增）。</li></ul><p>补充解决时钟回拨思路：因为机器的原因会发生时间回拨，我们的雪花算法是强依赖机器时间的，如果时间发生回拨，有可能会生成重复的ID，在我们上面的nextId中用当前时间和上一次的时间进行判断，如果当前时间小于上一次的时间那么肯定是发生了回拨，普通的算法会直接抛出异常。这里我们可以对其进行优化，一般分为两个情况：</p><ul><li>如果时间回拨时间较短，比如配置5ms以内，那么可以直接等待一定的时间，让机器时间追上来；</li><li>如果时间的回拨时间较长，我们不能接受这么长的阻塞等待，那么又有两个策略，直接拒绝，抛出异常，打日志，或者通知RD时钟回滚。</li></ul><p><strong>四、其他方式</strong></p><p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95/702192350660.png" alt="在这里插入图片描述"></p><ul><li>百度开源的分布式唯一ID生成器UidGenerator</li><li>美团点评分布式ID生成系统 Leaf</li></ul>]]></content>
+      
+      
       <categories>
-        <category>java</category>
+          
+          <category> 分布式 </category>
+          
       </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CentOS7查看最大线程数</title>
-    <url>/2015/07/10/CentOS7%E6%9F%A5%E7%9C%8B%E6%9C%80%E5%A4%A7%E7%BA%BF%E7%A8%8B%E6%95%B0/</url>
-    <content><![CDATA[<p>aaaa</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 分布式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Java两种方式实现Token校验</title>
+      <link href="/2017/06/08/Java%E5%AE%9E%E7%8E%B0%E5%9F%BA%E4%BA%8Etoken%E8%AE%A4%E8%AF%81%E7%9A%84%E6%96%B9%E6%B3%95%E7%A4%BA%E4%BE%8B/"/>
+      <url>/2017/06/08/Java%E5%AE%9E%E7%8E%B0%E5%9F%BA%E4%BA%8Etoken%E8%AE%A4%E8%AF%81%E7%9A%84%E6%96%B9%E6%B3%95%E7%A4%BA%E4%BE%8B/</url>
+      
+        <content type="html"><![CDATA[<p><strong>一、与cookie相比较的优势：</strong></p><p>1、支持跨域访问，将token置于请求头中，而cookie是不支持跨域访问的；</p><p>2、无状态化，服务端无需存储token，只需要验证token信息是否正确即可，而session需要在服务端存储，一般是通过cookie中的sessionID在服务端查找对应的session；</p><p>3、无需绑定到一个特殊的身份验证方案（传统的用户名密码登陆），只需要生成的token是符合我们预期设定的即可；</p><p>4、更适用于移动端（Android，iOS，小程序等等），像这种原生平台不支持cookie，比如说微信小程序，每一次请求都是一次会话，当然我们可以每次去手动为他添加cookie，详情请查看博主另一篇博客；</p><p>5、避免CSRF跨站伪造攻击，还是因为不依赖cookie；</p><p>6、非常适用于RESTful API,这样可以轻易与各种后端（java，.net，python……）相结合，去耦合</p><p>还有一些优势这里就不一一列举了。</p><p><strong>二、基于JWT的token认证实现</strong></p><p>JWT：JSON Web Token，其实token就是一段字符串，由三部分组成：Header，Payload，Signature。详细情况请自行百度，现在，上代码。</p><p><strong>1、引入依赖，这里选用java-jwt，选择其他的依赖也可以</strong></p><p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/Java%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0Token%E6%A0%A1%E9%AA%8C/1.png" alt="img"></p><p><strong>2、实现签名方法</strong></p><p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/Java%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0Token%E6%A0%A1%E9%AA%8C/2.png" alt="img"></p><p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/Java%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0Token%E6%A0%A1%E9%AA%8C/3.png" alt="img"></p><p>设置15分钟过期也是出于安全考虑，防止token被窃取，不过一般选择基于token认证，传输方式我们都应该选择https，这样别人无法抓取到我们的请求信息。这个私钥是非常重要的，加密解密都需要用到它，要设置的足够复杂并且不能被盗取，我这里选用的是一串uuid，加密方式是HMAC256。</p><p><strong>3、认证</strong></p><p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/Java%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0Token%E6%A0%A1%E9%AA%8C/4.png" alt="img"></p><p>我这里演示的还是以传统的用户名密码验证，验证通过发放token。</p><p>**4、配置拦截器</p><p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/Java%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0Token%E6%A0%A1%E9%AA%8C/5.png" alt="img"></p><p>实现HandleInterceptor，重写preHandle方法，该方法是在每个请求之前触发执行，从request的头里面取出token，这里我们统一了存放token的键为accessToken，验证通过，放行，验证不通过，返回认证失败信息。</p><p><strong>5、设置拦截器</strong></p><p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/Java%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0Token%E6%A0%A1%E9%AA%8C/6.png" alt="img"></p><p>这里使用的是Spring的xml配置拦截器，放过认证接口。</p><p><strong>6、token解码方法</strong></p><p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/Java%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0Token%E6%A0%A1%E9%AA%8C/7.png" alt="img"></p><p><strong>7、测试</strong></p><p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/Java%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0Token%E6%A0%A1%E9%AA%8C/8.png" alt="img"></p><p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/Java%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0Token%E6%A0%A1%E9%AA%8C/9.png" alt="img"></p><p>访问携带token，请求成功。</p><p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/Java%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0Token%E6%A0%A1%E9%AA%8C/10.png" alt="img"></p><p>未携带token或者token错误，过期，返回认证失败信息。</p><p><strong>8、获取token里携带的信息</strong></p><p>我们可以将一些常用的信息放入token中，比如用户登陆信息，可以方便我们的使用</p><p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/Java%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0Token%E6%A0%A1%E9%AA%8C/11.png" alt="img"></p><p>至此，一个简单的基于token认证就实现了.</p>]]></content>
+      
+      
       <categories>
-        <category>服务器</category>
+          
+          <category> auth </category>
+          
       </categories>
-      <tags>
-        <tag>服务器</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JDK安装与环境变量配置</title>
-    <url>/2015/07/10/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h5>工具/原料</h5>
-JDK1.7.0<br>
-WIN7
-<h5>方法/步骤</h5>
-一、安装JDK 选择安装目录 安装过程中会出现两次 安装提示 。第一次是安装 jdk ，第二次是安装 jre 。
-建议两个都安装在同一个java文件夹中的不同文件夹中。
-
-<p>（不能都安装在java文件夹的根目录下，jdk和jre安装在同一文件夹会出错）<br>如下图所示<br><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk1.png" alt="安装"><br><br></p>
-<p>二、1：安装jdk 随意选择目录 只需把默认安装目录 \java 之前的目录修改即可</p>
-<p>2：安装jre→更改→ \java 之前目录和安装 jdk 目录相同即可</p>
-<p>注：若无安装目录要求，可全默认设置。无需做任何修改，两次均直接点下一步。<br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk2.png" alt="安装"><br><br><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk3.png" alt="安装"><br><br></p>
-<p>三、安装完JDK后配置环境变量  计算机→属性→高级系统设置→高级→环境变量<br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk4.png" alt="安装"><br><br></p>
-<p>四、系统变量→新建 JAVA_HOME 变量 。</p>
-<p>变量值填写jdk的安装目录（本人是 E:\Java\jdk1.7.0)<br><br>五、系统变量→寻找 Path 变量→编辑</p>
-<p>在变量值最后输入 %JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;</p>
-<p>（注意原来Path的变量值末尾有没有;号，如果没有，先输入；号再输入上面的代码）<br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk5.png" alt="安装"><br><br></p>
-<p>六、系统变量→新建 CLASSPATH 变量</p>
-<p>变量值填写   .;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar（注意最前面有一点）</p>
-<p>系统变量配置完毕</p>
-<p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk6.png" alt="安装"><br><br></p>
-<p>七、检验是否配置成功 运行cmd 输入 java -version （java 和 -version 之间有空格）</p>
-<p>若如图所示 显示版本信息 则说明安装和配置成功。</p>
-<p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk7.png" alt="安装"><br><br></p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> auth </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>如何使用hexo搭建blog</title>
+      <link href="/2017/02/23/%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BAblog/"/>
+      <url>/2017/02/23/%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BAblog/</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://img.binvon.com/githubblog/img/timg.jpg" alt="image"><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/timg2.jpg" alt="image"><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/WYCWF7DRAj12EHZgcMVbWyCbPDUIXAA3.gif" alt="image"><br>测试图片</p>]]></content>
+      
+      
       <categories>
-        <category>java</category>
+          
+          <category> blog </category>
+          
       </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>can not read a block mapping entry; a multiline key may not be an implicit key at line 4, column 1:</title>
-    <url>/2015/09/10/can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1/</url>
-    <content><![CDATA[<p>无法读取块映射项;多行键可能不是第4行第1列的隐式键:</p>
-<p>我是新建一篇博客时、编译出现的错误。其实我之前一直不配置tags的。这里的”:”后面还是要接上空格。</p>
-<p><img src="https://img2020.cnblogs.com/blog/1993793/202010/1993793-20201028090355667-1242082136.png" alt="img"></p>
-<p><img src="https://img2020.cnblogs.com/blog/1993793/202010/1993793-20201028090355970-1145804176.png" alt="img"></p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>can not read a block mapping entry; a multiline key may not be an implicit key at line 4, column 1:</title>
+      <link href="/2015/09/10/can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1/"/>
+      <url>/2015/09/10/can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1/</url>
+      
+        <content type="html"><![CDATA[<p>无法读取块映射项;多行键可能不是第4行第1列的隐式键:</p><p>我是新建一篇博客时、编译出现的错误。其实我之前一直不配置tags的。这里的”:”后面还是要接上空格。</p><p><img src="https://img2020.cnblogs.com/blog/1993793/202010/1993793-20201028090355667-1242082136.png" alt="img"></p><p><img src="https://img2020.cnblogs.com/blog/1993793/202010/1993793-20201028090355970-1145804176.png" alt="img"></p>]]></content>
+      
+      
       <categories>
-        <category>hexo</category>
+          
+          <category> hexo </category>
+          
       </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>continue,break,return有什么区别</title>
-    <url>/2015/07/12/continue-break-return%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<p>   1、return ：直接跳出当前的方法,返回到该调用的方法的语句处,继续执行</p>
-<p>   2、break：在循环体内结束整个循环过程</p>
-<p>   3、continue ：结束本次的循环，直接进行下一次的循环</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>BIO,NIO,AIO 有什么区别</title>
+      <link href="/2015/08/05/BIO-NIO-AIO-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/"/>
+      <url>/2015/08/05/BIO-NIO-AIO-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
+      
+        <content type="html"><![CDATA[<p>BIO （Blocking I/O）：同步阻塞I/O模式，数据的读取写入必须阻塞在一个线程内等待其完成。这里使用那个经典的烧开水例子，这里假设一个烧开水的场景，有一排水壶在烧开水，BIO的工作模式就是， 叫一个线程停留在一个水壶那，直到这个水壶烧开，才去处理下一个水壶。但是实际上线程在等待水壶烧开的时间段什么都没有做。</p><p>NIO （New I/O）：同时支持阻塞与非阻塞模式，但这里我们以其同步非阻塞I/O模式来说明，那么什么叫做同步非阻塞？如果还拿烧开水来说，NIO的做法是叫一个线程不断的轮询每个水壶的状态，看看是否有水壶的状态发生了改变，从而进行下一步的操作。</p><p>AIO （ Asynchronous I/O）：异步非阻塞I/O模型。异步非阻塞与同步非阻塞的区别在哪里？异步非阻塞无需一个线程去轮询所有IO操作的状态改变，在相应的状态改变后，系统会通知对应的线程来处理。对应到烧开水中就是，为每个水壶上面装了一个开关，水烧开之后，水壶会自动通知我水烧开了。</p><p>进程中的IO调用步骤大致可以分为以下四步：</p><p>进程向操作系统请求数据 ;</p><p>操作系统把外部数据加载到内核的缓冲区中;</p><p>操作系统把内核的缓冲区拷贝到进程的缓冲区 ;</p><p>进程获得数据完成自己的功能 ;</p><p>当操作系统在把外部数据放到进程缓冲区的这段时间（即上述的第二，三步），如果应用进程是挂起等待的，那么就是同步IO，反之，就是异步IO，也就是AIO 。</p>]]></content>
+      
+      
       <categories>
-        <category>java</category>
+          
+          <category> java </category>
+          
       </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>如何使用hexo搭建blog</title>
-    <url>/2017/02/23/%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BAblog/</url>
-    <content><![CDATA[<p><img src="https://img.binvon.com/githubblog/img/timg.jpg" alt="image"><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/timg2.jpg" alt="image"><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/WYCWF7DRAj12EHZgcMVbWyCbPDUIXAA3.gif" alt="image"><br>测试图片</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>continue,break,return有什么区别</title>
+      <link href="/2015/07/12/continue-break-return%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/"/>
+      <url>/2015/07/12/continue-break-return%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
+      
+        <content type="html"><![CDATA[<p>   1、return ：直接跳出当前的方法,返回到该调用的方法的语句处,继续执行</p><p>   2、break：在循环体内结束整个循环过程</p><p>   3、continue ：结束本次的循环，直接进行下一次的循环</p>]]></content>
+      
+      
       <categories>
-        <category>blog</category>
+          
+          <category> java </category>
+          
       </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用goolge cloud建设ssr</title>
-    <url>/2019/12/29/%E4%BD%BF%E7%94%A8goolge-cloud%E5%BB%BA%E8%AE%BEssr/</url>
-    <content><![CDATA[<p>yum -y install wget</p>
-<p>wget –no-check-certificate <a href="https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh">https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh</a></p>
-<p>chmod +x shadowsocksR.sh</p>
-<p>./shadowsocksR.sh 2&gt;&amp;1 | tee shadowsocksR.log</p>
-<p>———————————————————代码分割线————<br>输入每行回车<br>设置密码<br>13231端口<br>2<br>3<br>6</p>
-]]></content>
-      <tags>
-        <tag>vpn</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>生成分布式ID算法.md</title>
-    <url>/2018/08/05/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p><strong>一、分布式ID</strong></p>
-<p><strong>1. 为什么需要分布式全局唯一ID？</strong></p>
-<p>在复杂的分布式系统中，往往需要对大量的数据和消息进行唯一标识。如在美团点评的金融、支付、餐饮、酒店等产品的系统中数据日渐增长，对<strong>数据分库分表后需要有一个唯一ID来标识</strong>某一条数据或消息，此时一个能够生成全局唯一ID的系统是非常必要的。</p>
-<p><strong>2. 那么分布式ID生成需要满足哪些条件</strong></p>
-<ul>
-<li>全局唯一：分布式系统下必须要保证ID是全局唯一的，这是最基本的要求；</li>
-<li>高性能：高可用低延时，ID生成响应要快，否则反倒会成为业务瓶颈；</li>
-<li>高可用：100%的可用性是骗人的，但是也要无限接近于100%的可用；</li>
-<li>好接入：要秉着拿来即用的设计原则，在系统设计和实现上要尽可能的简单；</li>
-<li>趋势递增：由于多数公司使用的是MySQL InnoDB作为存储引擎，所以ID最好趋势递增。</li>
-</ul>
-<p><strong>二、一般通用方案</strong></p>
-<p><strong>1. UUID</strong></p>
-<p>String uuid = UUID.randomUUID().toString().replaceAll(“-“,””);</p>
-<ul>
-<li>UUID的标准形式：包含32个16进制数字，以连字号分为五段，形式为8-4-4-12的36个字符；</li>
-<li>优点：代码简单，性能非常高（本地生成，没有网络消耗），保证唯一（重复概率极低可以忽略）；</li>
-<li>缺点：生成的ID是无序的字符串，无法保证趋势递增，且没有一定的业务含义；还有就是长度过长入且无序，会严重消耗MySQL数据库性能。</li>
-</ul>
-<p>为什么无序的UUID会导致入库性能变差呢？</p>
-<ul>
-<li><strong>作为主键过长</strong>，MySQL官方有明确的建议主键尽量越短越好，36个字符长度的UUID不符合要求；</li>
-<li><strong>字符串且无序</strong>，MySQL InnoDB引擎的索引底层数据结构是B+树，每一次新的UUID插入表，都会对主键底层的B+树索引进行很大的修改，插入完全无序，不但会导致一些中间节点产生分裂，也会白白创造出很多不饱和的节点，这样大大降低了数据库插入的性能，还会增加读取磁盘的次数。</li>
-</ul>
-<p><strong>2. 数据库自增主键</strong></p>
-<ul>
-<li>单点模式自增ID</li>
-</ul>
-<p>在分布式里，数据库的自增ID机制的主要原理是：数据库自增ID和MySql数据库的replace into实现的。</p>
-<p>replace into 跟 insert 功能类似，不同点在于：replace into首先尝试插入数据列表中，如果发现表中已经有此行数据（根据主键或唯一索引）判断是否存在，若有则先删除再插入，否则直接插入新数据。REPLACE INTO的含义是插入一条记录，如果表中唯一索引的值遇到冲突，则替换老数据。</p>
-<p>CREATE TABLE t_test ( id bigint(20) unsigned not null auto_increment primary key, stub char(1) not null default ‘’, unique key stub (stub) ) select * from t_test; replace into t_test (stub) values(‘a’); select last_insert_id();</p>
-<p>当我们需要一个ID时，向表中插入一条记录返回主键ID即可。此种方式优点：实现简单，ID单调自增，数值类型查询速度快；缺点：1）强依赖DB，存在单点问题，一旦数据库宕机，整个业务不可用；2）单点数据库压力大，无法扛住高并发场景；3）信息安全问题，比如暴露订单量等。</p>
-<ul>
-<li>集群式自增ID</li>
-</ul>
-<p>对上面单点模式做优化，改成集群模式自增ID，也就是多个MySQL实例各自生成自增ID。要设置起始值和自增步长，保证生成ID不会重复。</p>
-<ul>
-<li>优点：解决了ID生成的单点问题，同时平衡了负载；</li>
-<li>缺点：系统后续水平扩容比较困难，增加机器可能要修改步长，起始值也不容易设置。数据库压力还是很大，每次获取ID都得读写一次数据库，非常影响性能，依旧无法满足高并发场景。</li>
-</ul>
-<p><strong>3. 基于Redis生成全局ID策略</strong></p>
-<p>因为Redis是单线程的天生保证原子性， 利用Redis的<strong>incr</strong>命令实现ID的原子性自增。</p>
-<p>127.0.0.1:6379&gt; set seq_id 1     // 初始化自增ID为1 OK 127.0.0.1:6379&gt; incr seq_id      // 增加1，并返回递增后的数值 (integer) 2</p>
-<p>集群分布式，可以使用Redis集群来获取更高的吞吐量，注意：在Redis集群情况下，同样和MySql一样需要设置不同的增长步长，同时key一定要设置有效期。</p>
-<p>假如一个集群中有5台Redis，可以初始化每台Redis的值分别是1，2，3，4，5 然后步长都是5，每个redis生成的ID为：</p>
-<p>​    A：1、6、11、16、21 B：2、7、12、17、22 C：3、8、13、18、23 D：4、9、14、19、24 E：5、10、15、20、25</p>
-<p>优点：效率高，不依赖数据库，可以扛住高并发场景；</p>
-<p>缺点：要考虑Redis的持久化问题，Redis支持RDB和AOF两种持久化的方式。</p>
-<ul>
-<li>RDB会定时打一个快照，如果打完快照后，连续自增了几次，还没来得及做下一次快照持久化，此时Redis挂掉了，重启Redis后会出现ID重复的情况。</li>
-<li>AOF会对每条写命令进行持久化，即使Redis挂掉了也不会出现ID重复的情况，但是由于incr命令的特殊性，会导致Redis重启恢复数据时间过长。</li>
-</ul>
-<p><strong>三、雪花算法 - Snowflake</strong></p>
-<p><strong>1. 概述</strong></p>
-<p>Twitter的分布式ID生成算法，开源后广受国内大厂的好评，经测试snowflake每秒能够生产26万个自增可排序的ID。</p>
-<p>特点：</p>
-<ul>
-<li>生成结果是一个64bit大小的Long类型整数；</li>
-<li>生成ID能够按照时间有序生成；</li>
-<li>不会产生ID碰撞并且效率较高。</li>
-</ul>
-<p><strong>2. 结构</strong></p>
-<p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95/2737C82A2841449F9A94F9806591BA7C.png" alt="雪花算法"></p>
-<p>结构：符号位（1bit）+ 时间戳（41bit）+ 机器ID（5bit）+ 数据中心（5bit）+ 自增序列号（12bit）</p>
-<ul>
-<li>符号位：Java中Long的最高位是符号位代表正负，正数是0，负数是1，一般生成ID都为正数，所以默认为0；</li>
-<li>时间戳：毫秒级的时间，不建议存当前时间戳，而是用（当前时间戳 - 固定开始时间戳）的差值，可以使产生的ID从更小的值开始；41位的时间戳可以使用69年，(1L &lt;&lt; 41) / (1000L 60 60 24 365) = 69年；</li>
-<li>工作机器ID：用来记录工作机器ID。可以部署 2^{10} = 1024个节点，包括5位datacenterId和5位workerId。可以灵活配置，机房或者机器号组合都可以；</li>
-<li>序列号：自增值，支持同一毫秒内同一个节点（同一个机器）可以生成4096个ID。</li>
-</ul>
-<p>因为时间戳是递增的，序列号也是递增的，所以雪花算法可以保证所有生成的ID按时间趋势递增，整个分布式系统内不会产生重复ID（因为有 datacenterId 和 workId来做区分）。</p>
-<p><strong>3. 源码</strong></p>
-<p>Java版(Hutool)：</p>
-<p>/** * Twitter的Snowflake 算法<br> * 分布式系统中，有一些需要使用全局唯一ID的场景，有些时候我们希望能使用一种简单一些的ID，并且希望ID能够按照时间有序生成。 * * <p> * snowflake的结构如下(每部分用-分开):<br> * * <pre> * 0 - 0000000000 0000000000 0000000000 0000000000 0 - 00000 - 00000 - 000000000000 * </pre> * <p> * 第一位为未使用(符号位表示正数)，接下来的41位为毫秒级时间(41位的长度可以使用69年)<br> * 然后是5位datacenterId和5位workerId(10位的长度最多支持部署1024个节点）<br> * 最后12位是毫秒内的计数（12位的计数顺序号支持每个节点每毫秒产生4096个ID序号） * <p> * 并且可以通过生成的id反推出生成时间,datacenterId和workerId * <p> * 参考：<a href="http://www.cnblogs.com/relucent/p/4955340.html">http://www.cnblogs.com/relucent/p/4955340.html</a> </p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">`<span class="comment">/* * @author Looly `</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">`* @since 3.0.1 */</span> `</span><br><span class="line">`<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Snowflake</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;     <span class="comment">// 开始时间戳    </span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> twepoch;    <span class="comment">// 机器标识位数    </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> workerIdBits = <span class="number">5L</span>;    <span class="comment">// 数据中心标识位数    </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> dataCenterIdBits = <span class="number">5L</span>;  <span class="comment">// 最大支持机器节点数0~31，一共32个    最大支持数据中心节点数0~31，一共32个    </span></span><br><span class="line">   <span class="meta">@SuppressWarnings(&#123;&quot;PointlessBitwiseExpression&quot;, &quot;FieldCanBeLocal&quot;&#125;)</span>    </span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> maxWorkerId = -<span class="number">1L</span> ^ (-<span class="number">1L</span> &lt;&lt; workerIdBits);    		      <span class="meta">@SuppressWarnings(&#123;&quot;PointlessBitwiseExpression&quot;, &quot;FieldCanBeLocal&quot;&#125;)</span>    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> maxDataCenterId = -<span class="number">1L</span> ^ (-<span class="number">1L</span> &lt;&lt; dataCenterIdBits);    <span class="comment">// 序列号12位    </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> sequenceBits = <span class="number">12L</span>;    <span class="comment">// 机器节点左移12位    </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> workerIdShift = sequenceBits;    <span class="comment">// 数据中心节点左移17位 </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> dataCenterIdShift = sequenceBits + workerIdBits;    <span class="comment">// 时间毫秒数左移22位    </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> timestampLeftShift = sequenceBits + workerIdBits + dataCenterIdBits;    </span><br><span class="line">    <span class="meta">@SuppressWarnings(&#123;&quot;PointlessBitwiseExpression&quot;, &quot;FieldCanBeLocal&quot;&#125;)</span>    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> sequenceMask = -<span class="number">1L</span> ^ (-<span class="number">1L</span> &lt;&lt; sequenceBits);<span class="comment">// 4095</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> workerId;    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> dataCenterId;    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">boolean</span> useSystemClock;    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> sequence = <span class="number">0L</span>;    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> lastTimestamp = -<span class="number">1L</span>;     </span><br><span class="line">    <span class="comment">/**     * 构造     *     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> workerId     终端ID     *</span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> dataCenterId 数据中心ID     */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Snowflake</span><span class="params">(<span class="keyword">long</span> workerId, <span class="keyword">long</span> dataCenterId)</span> </span>&#123;        </span><br><span class="line">        <span class="keyword">this</span>(workerId, dataCenterId, <span class="keyword">false</span>);    </span><br><span class="line">    &#125;     <span class="comment">/**     * 构造     *     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> workerId         终端ID     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> dataCenterId     数据中心ID     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> isUseSystemClock 是否使用</span></span><br><span class="line"><span class="comment">    &#123;<span class="doctag">@link</span> SystemClock&#125; 获取当前时间戳     */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Snowflake</span><span class="params">(<span class="keyword">long</span> workerId, <span class="keyword">long</span> dataCenterId, <span class="keyword">boolean</span> isUseSystemClock)</span> </span>&#123;        <span class="keyword">this</span>(<span class="keyword">null</span>, workerId, dataCenterId, isUseSystemClock);    &#125;     </span><br><span class="line">    <span class="comment">/**     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> epochDate        初始化时间起点（null表示默认起始日期）,后期修改会导致id重复,如果要修改连workerId dataCenterId，慎用     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> workerId         工作机器节点id * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> dataCenterId     数据中心id     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> isUseSystemClock 是否使用&#123;<span class="doctag">@link</span> SystemClock&#125; 获取当前时间戳     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@since</span> 5.1.3     */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Snowflake</span><span class="params">(Date epochDate, <span class="keyword">long</span> workerId, <span class="keyword">long</span> dataCenterId, <span class="keyword">boolean</span> isUseSystemClock)</span> </span>&#123;        </span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != epochDate) &#123;            </span><br><span class="line">            <span class="keyword">this</span>.twepoch = epochDate.getTime();        </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;            <span class="comment">// Thu, 04 Nov 2010 01:42:54 GMT            </span></span><br><span class="line">            <span class="keyword">this</span>.twepoch = <span class="number">1288834974657L</span>;        &#125;        </span><br><span class="line">        <span class="keyword">if</span> (workerId &gt; maxWorkerId || workerId &lt; <span class="number">0</span>) &#123;            </span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(String.format(<span class="string">&quot;worker Id can&#x27;t be greater than &#123;&#125;&#125; or less than 0&quot;</span>, maxWorkerId));        </span><br><span class="line">        &#125;        </span><br><span class="line">        <span class="keyword">if</span> (dataCenterId &gt; maxDataCenterId || dataCenterId &lt; <span class="number">0</span>) &#123;            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(String.format(<span class="string">&quot;datacenter Id can&#x27;t be greater than &#123;&#125; or less than 0&quot;</span>, maxDataCenterId));        &#125;        </span><br><span class="line">        <span class="keyword">this</span>.workerId = workerId;        <span class="keyword">this</span>.dataCenterId = dataCenterId;        <span class="keyword">this</span>.useSystemClock = isUseSystemClock;    &#125;     </span><br><span class="line">    <span class="comment">/**     * 根据Snowflake的ID，获取机器id     *     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> id snowflake算法生成的id     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@return</span> 所属机器的id     */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getWorkerId</span><span class="params">(<span class="keyword">long</span> id)</span> </span>&#123;        </span><br><span class="line">        <span class="keyword">return</span> id &gt;&gt; workerIdShift &amp; ~(-<span class="number">1L</span> &lt;&lt; workerIdBits);    &#125;     </span><br><span class="line">    <span class="comment">/**     * 根据Snowflake的ID，获取数据中心id     *     *</span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> id snowflake算法生成的id     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@return</span> 所属数据中心     */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getDataCenterId</span><span class="params">(<span class="keyword">long</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id &gt;&gt; dataCenterIdShift &amp; ~(-<span class="number">1L</span> &lt;&lt; dataCenterIdBits);    </span><br><span class="line">    &#125;     </span><br><span class="line">    <span class="comment">/**     * 根据Snowflake的ID，获取生成时间     *     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@param</span> id snowflake算法生成的id     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@return</span> 生成的时间     */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getGenerateDateTime</span><span class="params">(<span class="keyword">long</span> id)</span> </span>&#123;        </span><br><span class="line">        <span class="keyword">return</span> (id &gt;&gt; timestampLeftShift &amp; ~(-<span class="number">1L</span> &lt;&lt; <span class="number">41L</span>)) + twepoch;    &#125;     </span><br><span class="line">    <span class="comment">/**     * 下一个ID     *     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@return</span> ID     */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">long</span> <span class="title">nextId</span><span class="params">()</span> </span>&#123;        </span><br><span class="line">        <span class="keyword">long</span> timestamp = genTime();        </span><br><span class="line">        <span class="keyword">if</span> (timestamp &lt; lastTimestamp) &#123;            </span><br><span class="line">            <span class="comment">// 如果服务器时间有问题(时钟后退) 报错。            </span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(String.format(<span class="string">&quot;Clock moved backwards. Refusing to generate id for &#123;&#125;ms&quot;</span>, (lastTimestamp - timestamp)));        &#125;       </span><br><span class="line">        <span class="keyword">if</span> (lastTimestamp == timestamp) &#123;            sequence = (sequence + <span class="number">1</span>) &amp; sequenceMask;            </span><br><span class="line">        <span class="keyword">if</span> (sequence == <span class="number">0</span>) &#123;                </span><br><span class="line">            timestamp = tilNextMillis(lastTimestamp);            &#125;       </span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;            sequence = <span class="number">0L</span>;        &#125;         </span><br><span class="line">        lastTimestamp = timestamp;         </span><br><span class="line">        <span class="keyword">return</span> ((timestamp - twepoch) &lt;&lt; timestampLeftShift) | (dataCenterId &lt;&lt; dataCenterIdShift) | (workerId &lt;&lt; workerIdShift) | sequence;    &#125;     </span><br><span class="line">    <span class="comment">/**     * 下一个ID（字符串形式）     *     * </span></span><br><span class="line"><span class="comment">    <span class="doctag">@return</span> ID 字符串形式     */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">nextIdStr</span><span class="params">()</span> </span>&#123;        <span class="keyword">return</span> Long.toString(nextId());    </span><br><span class="line">                              &#125;     <span class="comment">// ------------------------------------------------------------------------------------------------------------------------------------ </span></span><br><span class="line">    Private method start     </span><br><span class="line">        <span class="comment">/**     * 循环等待下一个时间     *     * </span></span><br><span class="line"><span class="comment">        <span class="doctag">@param</span> lastTimestamp 上次记录的时间     * </span></span><br><span class="line"><span class="comment">        <span class="doctag">@return</span> 下一个时间     */</span>    </span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">long</span> <span class="title">tilNextMillis</span><span class="params">(<span class="keyword">long</span> lastTimestamp)</span> </span>&#123;        <span class="keyword">long</span> timestamp = genTime();        </span><br><span class="line">         <span class="keyword">while</span> (timestamp &lt;= lastTimestamp) &#123;            timestamp = genTime();        &#125;        <span class="keyword">return</span> timestamp;    &#125;     </span><br><span class="line">    <span class="comment">/**     * 生成时间戳     *     * <span class="doctag">@return</span> 时间戳     */</span>    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">long</span> <span class="title">genTime</span><span class="params">()</span> </span>&#123;        <span class="keyword">return</span> <span class="keyword">this</span>.useSystemClock ? SystemClock.now() : System.currentTimeMillis();    &#125; &#125;`</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>4. 工程落地经验</strong></p>
-<p>分布式整合雪花算法：</p>
-<p>IdGenerateInvoker.java</p>
-<p>/** * 分布式环境下数据库主键的ID生成器 * 实现了对分布式友好的Snowflake算法，并且会在Spring IOC容器初始化的时候注册成为单例Bean. * 如果需要自定义生成策略，请实现本接口并将其实例注册到容器中，并在{@link PrimaryKey}的strategy属性指定. * <em>/ public interface IdGenerateInvoker {     /</em>*     * 获取下一个永不重复的id.     *     * @return id.     */    Serializable nextId(); }</p>
-<p>SnowFlakeIdGenerateInvoker.java</p>
-<p>/** * ======分布式数据库主键ID生成器基于SnowFlake算法的实现. * 本实现类的对象将会在程序启动的时候自动在Spring IOC容器中注册为Bean. * 如果想在您的持久化过程中由系统自动设置主键字段的值，只需要在具体的POJO字段上添加@PrimaryKey注解，详见{@link PrimaryKey}. * 其默认打开，并且在未指定具体id生成算法的前提下，它将自动使用SnowFlake算法生成id,在持久化之前自动设置值. * <p> * SnowFlake算法的实现依赖于workerId和dataCenterId两个值的，系统默认使用5L作为其初始值. * 如果您想要在分布式环境使用本算法的实现，建议您在application.yml中配置这2个属性的值. */ @Component public class SnowFlakeIdGenerateInvoker implements IdGenerateInvoker {     @Autowired    private SnowFlakeConfig snowFlakeConfig;     private Snowflake snowflake;     @PostConstruct    public void init() {        long wokerid = snowFlakeConfig.getWorkerId();        long dataCenterId = snowFlakeConfig.getDataCenterId();        this.snowflake = new Snowflake(wokerid, dataCenterId);    }     @Override    public synchronized Serializable nextId() {        return snowflake.nextId();    } }</p>
-<p>SnowFlakeConfig.java</p>
-<ul>
-<li>公司workerId使用位长为8位，取的是机器IP地址后三位；</li>
-<li>dataCenterId使用位长为两位，配置在配置文件中。</li>
-</ul>
-<p>/** * 关于SnowFlake的配置. * WorkerId和DataCenterId的值请保证集群中的每个节点不相同. * WorkerId取ip地址最后三位，dataCenterId配置在properties. */ @Component @Validated @Slf4j @ConfigurationProperties(prefix = “snowflake”) public class SnowFlakeConfig {     @Value(“${spring.application.name}”)    private String appName;     private long workerId;     @NotNull    private long dataCenterId;     @PostConstruct    public void init() {        try {            String ipAddr = NetUtil.getHostIpAddr();            log.info(“current ip :{}”, ipAddr);            if (!StringUtils.isEmpty(ipAddr)) {                String[] ipStep = ipAddr.split(“\.”);                this.workerId = Long.valueOf(ipStep[3]);            } else {                log.warn(“ip address parse error.”);            }        } catch (Exception e) {            throw new RuntimeException(e);        }        log.info(“Snowflake:[workerId:{} from ip address tail, dataCenterId:{} from properties] of micro service [{}] has been initialized.”                , workerId, dataCenterId, appName == null ? “” : appName.toUpperCase());    }     public long getWorkerId() {        return workerId;    }     public void setWorkerId(long workerId) {        this.workerId = workerId;    }     public long getDataCenterId() {        return dataCenterId;    }     public void setDataCenterId(long dataCenterId) {        this.dataCenterId = dataCenterId;    } }</p>
-<p>application.properties</p>
-<p>spring.application.name=ncs-case # snowflake配置 #snowflake.worker-id= snowflake.data-center-id=2</p>
-<p><strong>5. 雪花算法优缺点</strong></p>
-<p>优点：</p>
-<ul>
-<li>毫秒数在高位，自增序列在低位，整个ID都是趋势递增的；</li>
-<li>不依赖数据库等第三方系统，以服务的方式部署，稳定性更高，生成ID的性能也是非常高的；</li>
-<li>可以根据自身业务特性分配bit位，非常灵活。</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>依赖机器时钟，如果机器时钟回拨，会导致重复ID生成；</li>
-<li>在单机上是递增的，但是由于设计到分布式环境，每台机器上的时钟不可能完全同步，有时候会出现不是全局递增的情况（此缺点可以认为无所谓，一般分布式ID只要求趋势递增，并不会严格要求递增，90%的需求都只要求趋势递增）。</li>
-</ul>
-<p>补充解决时钟回拨思路：因为机器的原因会发生时间回拨，我们的雪花算法是强依赖机器时间的，如果时间发生回拨，有可能会生成重复的ID，在我们上面的nextId中用当前时间和上一次的时间进行判断，如果当前时间小于上一次的时间那么肯定是发生了回拨，普通的算法会直接抛出异常。这里我们可以对其进行优化，一般分为两个情况：</p>
-<ul>
-<li>如果时间回拨时间较短，比如配置5ms以内，那么可以直接等待一定的时间，让机器时间追上来；</li>
-<li>如果时间的回拨时间较长，我们不能接受这么长的阻塞等待，那么又有两个策略，直接拒绝，抛出异常，打日志，或者通知RD时钟回滚。</li>
-</ul>
-<p><strong>四、其他方式</strong></p>
-<p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/%E7%94%9F%E6%88%90%E5%88%86%E5%B8%83%E5%BC%8FID%E7%AE%97%E6%B3%95/702192350660.png" alt="在这里插入图片描述"></p>
-<ul>
-<li>百度开源的分布式唯一ID生成器UidGenerator</li>
-<li>美团点评分布式ID生成系统 Leaf</li>
-</ul>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CentOS7查看最大线程数</title>
+      <link href="/2015/07/10/CentOS7%E6%9F%A5%E7%9C%8B%E6%9C%80%E5%A4%A7%E7%BA%BF%E7%A8%8B%E6%95%B0/"/>
+      <url>/2015/07/10/CentOS7%E6%9F%A5%E7%9C%8B%E6%9C%80%E5%A4%A7%E7%BA%BF%E7%A8%8B%E6%95%B0/</url>
+      
+        <content type="html"><![CDATA[<p>aaaa</p>]]></content>
+      
+      
       <categories>
-        <category>分布式</category>
+          
+          <category> 服务器 </category>
+          
       </categories>
-      <tags>
-        <tag>分布式</tag>
-      </tags>
-  </entry>
+      
+      
+        <tags>
+            
+            <tag> 服务器 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>JDK安装与环境变量配置</title>
+      <link href="/2015/07/10/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/"/>
+      <url>/2015/07/10/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/</url>
+      
+        <content type="html"><![CDATA[<h5>工具/原料</h5>JDK1.7.0<br>WIN7<h5>方法/步骤</h5>一、安装JDK 选择安装目录 安装过程中会出现两次 安装提示 。第一次是安装 jdk ，第二次是安装 jre 。建议两个都安装在同一个java文件夹中的不同文件夹中。<p>（不能都安装在java文件夹的根目录下，jdk和jre安装在同一文件夹会出错）<br>如下图所示<br><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk1.png" alt="安装"><br><br></p><p>二、1：安装jdk 随意选择目录 只需把默认安装目录 \java 之前的目录修改即可</p><p>2：安装jre→更改→ \java 之前目录和安装 jdk 目录相同即可</p><p>注：若无安装目录要求，可全默认设置。无需做任何修改，两次均直接点下一步。<br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk2.png" alt="安装"><br><br><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk3.png" alt="安装"><br><br></p><p>三、安装完JDK后配置环境变量  计算机→属性→高级系统设置→高级→环境变量<br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk4.png" alt="安装"><br><br></p><p>四、系统变量→新建 JAVA_HOME 变量 。</p><p>变量值填写jdk的安装目录（本人是 E:\Java\jdk1.7.0)<br><br>五、系统变量→寻找 Path 变量→编辑</p><p>在变量值最后输入 %JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;</p><p>（注意原来Path的变量值末尾有没有;号，如果没有，先输入；号再输入上面的代码）<br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk5.png" alt="安装"><br><br></p><p>六、系统变量→新建 CLASSPATH 变量</p><p>变量值填写   .;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar（注意最前面有一点）</p><p>系统变量配置完毕</p><p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk6.png" alt="安装"><br><br></p><p>七、检验是否配置成功 运行cmd 输入 java -version （java 和 -version 之间有空格）</p><p>若如图所示 显示版本信息 则说明安装和配置成功。</p><p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk7.png" alt="安装"><br><br></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
 </search>
