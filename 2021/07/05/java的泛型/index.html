@@ -17,28 +17,20 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>JDK安装与环境变量配置 | Bin&#39;s blog</title>
-  <meta name="description" content="工具&#x2F;原料 JDK1.7.0 WIN7 方法&#x2F;步骤 一、安装JDK 选择安装目录 安装过程中会出现两次 安装提示 。第一次是安装 jdk ，第二次是安装 jre 。 建议两个都安装在同一个java文件夹中的不同文件夹中。  （不能都安装在java文件夹的根目录下，jdk和jre安装在同一文件夹会出错）如下图所示 二、1：安装jdk 随意选择目录 只需把默认安装目录 \java 之前的目录修改即可">
+  <title>java的泛型 | Bin&#39;s blog</title>
+  <meta name="description" content="一、概述Java泛型（generics）是JDK 5中引入的一个新特性，泛型提供了编译时类型安全监测机制，该机制允许程序员在编译时监测非法的类型。使用泛型机制编写的程序代码要比那些杂乱地使用Object变量，然后再进行强制类型转换的代码具有更好的安全性和可读性。泛型对于集合类尤其有用，例如，ArrayList就是一个无处不在的集合类。 泛型的本质是参数化类型，也就是所操作的数据类型被指定为一个参数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JDK安装与环境变量配置">
-<meta property="og:url" content="http://blog.binvon.com/2015/07/10/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:title" content="java的泛型">
+<meta property="og:url" content="http://blog.binvon.com/2021/07/05/java%E7%9A%84%E6%B3%9B%E5%9E%8B/index.html">
 <meta property="og:site_name" content="bin">
-<meta property="og:description" content="工具&#x2F;原料 JDK1.7.0 WIN7 方法&#x2F;步骤 一、安装JDK 选择安装目录 安装过程中会出现两次 安装提示 。第一次是安装 jdk ，第二次是安装 jre 。 建议两个都安装在同一个java文件夹中的不同文件夹中。  （不能都安装在java文件夹的根目录下，jdk和jre安装在同一文件夹会出错）如下图所示 二、1：安装jdk 随意选择目录 只需把默认安装目录 \java 之前的目录修改即可">
+<meta property="og:description" content="一、概述Java泛型（generics）是JDK 5中引入的一个新特性，泛型提供了编译时类型安全监测机制，该机制允许程序员在编译时监测非法的类型。使用泛型机制编写的程序代码要比那些杂乱地使用Object变量，然后再进行强制类型转换的代码具有更好的安全性和可读性。泛型对于集合类尤其有用，例如，ArrayList就是一个无处不在的集合类。 泛型的本质是参数化类型，也就是所操作的数据类型被指定为一个参数">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk1.png">
-<meta property="og:image" content="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk2.png">
-<meta property="og:image" content="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk3.png">
-<meta property="og:image" content="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk4.png">
-<meta property="og:image" content="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk5.png">
-<meta property="og:image" content="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk6.png">
-<meta property="og:image" content="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk7.png">
-<meta property="article:published_time" content="2015-07-10T08:23:43.000Z">
-<meta property="article:modified_time" content="2015-07-10T15:03:42.000Z">
+<meta property="article:published_time" content="2021-07-04T18:26:54.000Z">
+<meta property="article:modified_time" content="2021-10-07T02:31:57.310Z">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk1.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://blog.binvon.com/2015/07/10/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/index.html">
+  <link rel="canonical" href="http://blog.binvon.com/2021/07/05/java%E7%9A%84%E6%B3%9B%E5%9E%8B/index.html">
   
     <link rel="alternate" href="/atom.xml" title="bin" type="application/atom+xml">
   
@@ -360,14 +352,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-JDK安装与环境变量配置" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-java的泛型" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      JDK安装与环境变量配置
+      java的泛型
     </h1>
   
 
@@ -375,16 +367,11 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2015/07/10/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/" class="article-date">
-	  <time datetime="2015-07-10T08:23:43.000Z" itemprop="datePublished">2015-07-10</time>
+	<a href="/2021/07/05/java%E7%9A%84%E6%B3%9B%E5%9E%8B/" class="article-date">
+	  <time datetime="2021-07-04T18:26:54.000Z" itemprop="datePublished">2021-07-05</time>
 	</a>
 </span>
         
-  <span class="article-category">
-    <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/java/">java</a>
-  </span>
-
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
@@ -394,35 +381,44 @@
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2015/07/10/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/07/05/java%E7%9A%84%E6%B3%9B%E5%9E%8B/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h5>工具/原料</h5>
-JDK1.7.0<br>
-WIN7
-<h5>方法/步骤</h5>
-一、安装JDK 选择安装目录 安装过程中会出现两次 安装提示 。第一次是安装 jdk ，第二次是安装 jre 。
-建议两个都安装在同一个java文件夹中的不同文件夹中。
+        <h3 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h3><p>Java泛型（<code>generics</code>）是JDK 5中引入的一个新特性，<strong>泛型提供了编译时类型安全监测机制</strong>，该机制允许程序员在编译时监测非法的类型。使用泛型机制编写的程序代码要比那些杂乱地使用<code>Object</code>变量，然后再进行强制类型转换的代码具有<strong>更好的安全性和可读性</strong>。泛型对于集合类尤其有用，例如，<code>ArrayList</code>就是一个无处不在的集合类。</p>
+<p><strong>泛型的本质是参数化类型</strong>，也就是所操作的数据类型被指定为一个参数。</p>
+<h3 id="二、泛型的使用"><a href="#二、泛型的使用" class="headerlink" title="二、泛型的使用"></a>二、泛型的使用</h3><p>泛型有三种常用的使用方式：<strong>泛型类</strong>，<strong>泛型接口</strong>和<strong>泛型方法</strong>。下面讲一一简单介绍这三种使用方法：</p>
+<h5 id="泛型类"><a href="#泛型类" class="headerlink" title="泛型类"></a>泛型类</h5><p>一个泛型类（<code>generic class</code>）就是具有一个或多个类型变量的类。下面通过一个简单的<code>Pair</code>类作为例子。对于这个类来说，我们只关注泛型，而不会为数据存储的细节烦恼。下面是<code>Pair</code>类的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 泛型类</span></span><br><span class="line"><span class="comment"> * Java库中 E表示集合的元素类型，K 和 V分别表示表的关键字与值的类型</span></span><br><span class="line"><span class="comment"> * T（需要时还可以用临近的字母 U 和 S）表示“任意类型”</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> T name;</span><br><span class="line">    <span class="keyword">private</span> T price;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(T name, T price)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.price = price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(T name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getPrice</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPrice</span><span class="params">(T price)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.price = price;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>（不能都安装在java文件夹的根目录下，jdk和jre安装在同一文件夹会出错）<br>如下图所示<br><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk1.png" alt="安装"><br><br></p>
-<p>二、1：安装jdk 随意选择目录 只需把默认安装目录 \java 之前的目录修改即可</p>
-<p>2：安装jre→更改→ \java 之前目录和安装 jdk 目录相同即可</p>
-<p>注：若无安装目录要求，可全默认设置。无需做任何修改，两次均直接点下一步。<br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk2.png" alt="安装"><br><br><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk3.png" alt="安装"><br><br></p>
-<p>三、安装完JDK后配置环境变量  计算机→属性→高级系统设置→高级→环境变量<br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk4.png" alt="安装"><br><br></p>
-<p>四、系统变量→新建 JAVA_HOME 变量 。</p>
-<p>变量值填写jdk的安装目录（本人是 E:\Java\jdk1.7.0)<br><br>五、系统变量→寻找 Path 变量→编辑</p>
-<p>在变量值最后输入 %JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;</p>
-<p>（注意原来Path的变量值末尾有没有;号，如果没有，先输入；号再输入上面的代码）<br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk5.png" alt="安装"><br><br></p>
-<p>六、系统变量→新建 CLASSPATH 变量</p>
-<p>变量值填写   .;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar（注意最前面有一点）</p>
-<p>系统变量配置完毕</p>
-<p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk6.png" alt="安装"><br><br></p>
-<p>七、检验是否配置成功 运行cmd 输入 java -version （java 和 -version 之间有空格）</p>
-<p>若如图所示 显示版本信息 则说明安装和配置成功。</p>
-<p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk7.png" alt="安装"><br><br></p>
+<p><code>Pair</code>类引入了一个类型变量T，用尖括号（&lt;&gt;）括起来，并放在类名的后面。泛型类可以有多个类型变量。例如，可以定义Pair类，其中第一个域和第二个域使用不同的类型：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>,<span class="title">U</span>&gt; </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>类方法中的类型变量指定方法的返回类型以及域和局部变量的类型。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> T first; <span class="comment">//uses the type variable</span></span><br></pre></td></tr></table></figure>
+
+<p>用具体的类型替换类型变量就可以实例化泛型类型，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pair&lt;String&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可以将结果想象成带有构造器的普通类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Pair&lt;String&gt;()</span><br><span class="line">Pair&lt;String&gt;(String,String)</span><br></pre></td></tr></table></figure>
+
+<p>和方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String <span class="title">getName</span><span class="params">()</span></span></span><br><span class="line"><span class="function">String <span class="title">getPrice</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setName</span><span class="params">(String)</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setPrice</span><span class="params">(String)</span></span></span><br></pre></td></tr></table></figure>
+
+<h5 id="泛型接口"><a href="#泛型接口" class="headerlink" title="泛型接口"></a>泛型接口</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Generator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">next</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>继承接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FruitGenerator</span> <span class="keyword">implements</span> <span class="title">Generator</span>&lt;<span class="title">String</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Fruit&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>或者也可以这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FruitGenerator</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Generator</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> T next;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FruitGenerator</span><span class="params">(T next)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.next = next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        FruitGenerator&lt;String&gt; fruit = <span class="keyword">new</span> FruitGenerator&lt;&gt;(<span class="string">&quot;Fruit&quot;</span>);</span><br><span class="line">        System.out.println(fruit.next);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="泛型方法"><a href="#泛型方法" class="headerlink" title="泛型方法"></a>泛型方法</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayAlg</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">getMiddle</span><span class="params">(T... a)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a[a.length / <span class="number">2</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        System.out.println(ArrayAlg.getMiddle(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个方法是<strong>在普通类中定义的，而不是在泛型类中定义的</strong>。然而，这是一个泛型方法，可以从尖括号和类型变量看出这一点。注意，类型变量放在修饰符（这里是 <code>public static</code>）的后面，返回类型的前面。</p>
 
       
     </div>
@@ -432,7 +428,7 @@ WIN7
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://blog.binvon.com/2015/07/10/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/" title="JDK安装与环境变量配置" target="_blank" rel="external">http://blog.binvon.com/2015/07/10/JDK安装与环境变量配置/</a>
+      <a href="http://blog.binvon.com/2021/07/05/java%E7%9A%84%E6%B3%9B%E5%9E%8B/" title="java的泛型" target="_blank" rel="external">http://blog.binvon.com/2021/07/05/java的泛型/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -478,13 +474,9 @@ WIN7
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2015/07/12/continue-break-return%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/" title="continue,break,return有什么区别"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2015/07/10/CentOS7%E6%9F%A5%E7%9C%8B%E6%9C%80%E5%A4%A7%E7%BA%BF%E7%A8%8B%E6%95%B0/" title="CentOS7查看最大线程数"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2019/12/29/%E4%BD%BF%E7%94%A8goolge-cloud%E5%BB%BA%E8%AE%BEssr/" title="使用goolge cloud建设ssr"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
