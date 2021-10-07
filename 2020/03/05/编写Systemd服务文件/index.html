@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>编写Systemd服务文件 | Bin&#39;s blog</title>
+  <meta name="description" content="一种以 .service 结尾的单元（unit）配置文件，用于62616964757a686964616fe58685e5aeb931333363356634控制由 systemd 控制或监视的进程。简单说，用于后台以守护精灵（daemon）的形式运行程序。 编写 Systemd service 基本结构 Systemd 服务的内容主要分为三个部分，控制单元（unit）的定义、服务（service">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编写Systemd服务文件">
+<meta property="og:url" content="http://blog.binvon.com/2020/03/05/%E7%BC%96%E5%86%99Systemd%E6%9C%8D%E5%8A%A1%E6%96%87%E4%BB%B6/index.html">
+<meta property="og:site_name" content="bin">
+<meta property="og:description" content="一种以 .service 结尾的单元（unit）配置文件，用于62616964757a686964616fe58685e5aeb931333363356634控制由 systemd 控制或监视的进程。简单说，用于后台以守护精灵（daemon）的形式运行程序。 编写 Systemd service 基本结构 Systemd 服务的内容主要分为三个部分，控制单元（unit）的定义、服务（service">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-04T18:11:22.000Z">
+<meta property="article:modified_time" content="2020-03-10T15:03:42.000Z">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://blog.binvon.com/2020/03/05/%E7%BC%96%E5%86%99Systemd%E6%9C%8D%E5%8A%A1%E6%96%87%E4%BB%B6/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="bin" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="../images/logo.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm"></h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">bin&#39;s blog</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> guangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>good good study , day day up !! </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/auth/">auth</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/springMvc/">springMvc</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vpn/">vpn</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8C%81%E4%B9%85%E5%B1%82/">持久层</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%93%E5%AD%98/">缓存</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/I-O/" rel="tag">I/O</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quartz/" rel="tag">Quartz</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/auth/" rel="tag">auth</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/" rel="tag">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/consul/" rel="tag">consul</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/" rel="tag">mybatis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/" rel="tag">mysql</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shadowsocks/" rel="tag">shadowsocks</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springMvc/" rel="tag">springMvc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springcloud/" rel="tag">springcloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websocket/" rel="tag">websocket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/I-O/" style="font-size: 13px;">I/O</a> <a href="/tags/Quartz/" style="font-size: 13.5px;">Quartz</a> <a href="/tags/auth/" style="font-size: 13px;">auth</a> <a href="/tags/bug/" style="font-size: 13px;">bug</a> <a href="/tags/consul/" style="font-size: 13.5px;">consul</a> <a href="/tags/java/" style="font-size: 14px;">java</a> <a href="/tags/linux/" style="font-size: 13.5px;">linux</a> <a href="/tags/mybatis/" style="font-size: 13px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 13.5px;">mysql</a> <a href="/tags/redis/" style="font-size: 13px;">redis</a> <a href="/tags/shadowsocks/" style="font-size: 13px;">shadowsocks</a> <a href="/tags/springMvc/" style="font-size: 13px;">springMvc</a> <a href="/tags/springcloud/" style="font-size: 13.5px;">springcloud</a> <a href="/tags/websocket/" style="font-size: 13px;">websocket</a> <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" style="font-size: 13px;">分布式</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 13px;">多线程</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled ">
+        
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2021/07/05/java%E7%9A%84%E6%B3%9B%E5%9E%8B/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/java/">java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/05/java%E7%9A%84%E6%B3%9B%E5%9E%8B/" class="title">java的泛型</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-04T18:26:54.000Z" itemprop="datePublished">2021-07-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2020/08/09/Linux%E4%B8%8B%E5%AE%89%E8%A3%85Consul/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/08/09/Linux%E4%B8%8B%E5%AE%89%E8%A3%85Consul/" class="title">Linux下安装Consul</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-08-08T18:11:22.000Z" itemprop="datePublished">2020-08-09</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2020/08/05/Consul%E9%9B%86%E7%BE%A4Server-Client%E6%A8%A1%E5%BC%8F/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/08/05/Consul%E9%9B%86%E7%BE%A4Server-Client%E6%A8%A1%E5%BC%8F/" class="title">Consul集群Server+Client模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-08-05T05:18:27.000Z" itemprop="datePublished">2020-08-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2020/03/05/%E7%BC%96%E5%86%99Systemd%E6%9C%8D%E5%8A%A1%E6%96%87%E4%BB%B6/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/03/05/%E7%BC%96%E5%86%99Systemd%E6%9C%8D%E5%8A%A1%E6%96%87%E4%BB%B6/" class="title">编写Systemd服务文件</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-03-04T18:11:22.000Z" itemprop="datePublished">2020-03-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-thumb">
+              <a href="/2019/12/29/%E4%BD%BF%E7%94%A8goolge-cloud%E5%BB%BA%E8%AE%BEssr/" class="thumb">
+    
+    
+        <span class="thumb-image thumb-none"></span>
+    
+</a>
+
+            </div>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/vpn/">vpn</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/12/29/%E4%BD%BF%E7%94%A8goolge-cloud%E5%BB%BA%E8%AE%BEssr/" class="title">使用goolge cloud建设ssr</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-12-29T08:40:12.000Z" itemprop="datePublished">2019-12-29</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-编写Systemd服务文件" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      编写Systemd服务文件
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/03/05/%E7%BC%96%E5%86%99Systemd%E6%9C%8D%E5%8A%A1%E6%96%87%E4%BB%B6/" class="article-date">
+	  <time datetime="2020-03-04T18:11:22.000Z" itemprop="datePublished">2020-03-05</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/linux/" rel="tag">linux</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/03/05/%E7%BC%96%E5%86%99Systemd%E6%9C%8D%E5%8A%A1%E6%96%87%E4%BB%B6/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>一种以 .service 结尾的单元（unit）配置文件，用于62616964757a686964616fe58685e5aeb931333363356634控制由 systemd 控制或监视的进程。简单说，用于后台以守护精灵（daemon）的形式运行程序。</p>
+<p><strong>编写 Systemd service</strong></p>
+<p>基本结构</p>
+<p><strong>Systemd 服务的内容主要分为三个部分，控制单元（unit）的定义、服务（service）的定义、以及安装部分。</strong></p>
+<p>和 SysV init 脚本的差异</p>
+<p>过去，*nix 服务（守护精灵）都是用 SysV 启动脚本启动的。SysV 启动脚本就是 Bash 脚本，通常在 /etc/init.d 目录下，可以被一些标准参数如 start，stop，restart 等调用。启动该脚本通常意味着启动一个后台守护精灵（daemon）。shell 脚本常见的缺点就是，慢、可读性不强、太详细又很傲娇。虽然它们很灵活（毕竟那就是代码呀），但是有些事只用脚本做还是显得太困难了，比如安排并列执行、正确监视进程，或者配置详细执行环境。</p>
+<p>SysV 启动脚本还有一个硬伤就是，臃肿，重复代码太多。因为上述的“标准参数”必须要靠各个脚本来实现，而且各个脚本之间的实现都差不多（根本就是从一个 skeleton 骨架来的）。而 Systemd 则进行了统一实现，也就是说在 Systemd service 中完全就不需要、也看不到这部分内容。这使得 Systemd 服务非常简明易读，例如 NetworkManager 这一重量级程序的服务，算上注释一共才有 19 行。而它相应的 SysV 启动脚本头 100 行连标准参数都没实现完。</p>
+<p>Systemd 兼容 Sysv 启动脚本，这也是为什么这么久我们仍然需要一个 systemd-sysvinit 软件包的原因。但是根据以上理由，最好针对所有您安装的守护精灵都使用原生 Systemd 服务来启动。另外，Systemd 服务可无缝用于所有使用 Systemd 的发行版，意思是 Arch 下编写的脚本拿过来依然能够使用。</p>
+<p>通常来说，上游应该在发布源代码的同时发布 Systemd 服务，但如果没发布，你可以对照本教学来为它们写一个并贡献给它们。</p>
+<p>Systemd 语法</p>
+<p>Systemd 语法和 .desktop 文件的语法比较像，也比较类似 Windows 下的 .ini 文件，因此无论对于打包者还是最终用户都是非常容易上手的。</p>
+<p>主要格式请见下面的小例子，这里需要说明三点：</p>
+<p>Systemd 单元文件中的以 “#” 开头的行后面的内容会被认为是注释</p>
+<p>Systemd 下的布尔值，1、yes、on、true 都是开启，0、no、off、false 都是关闭。注：</p>
+<p>仅限于 Systemd 文件，比如：</p>
+<p>RemainOnExit=yes</p>
+<p>并不适用于该文件中嵌入的 shell 语句，比如：</p>
+<p>ExecStartPre=/usr/bin/test “x${NETWORKMANAGER}” = xyes</p>
+<p>这里的 yes 就不能替换。因为等号后面是一条嵌入的 shell 语句。</p>
+<p>Systemd 下的时间单位默认是秒，所以要用毫秒（ms）分钟（m）等请显式说明。</p>
+<p>一个小例子</p>
+<p>NetworkManager 的 Systemd service：</p>
+<p>[Unit]</p>
+<p>Description=Network Manager</p>
+<p>After=syslog.target</p>
+<p>Wants=remote-fs.target network.target</p>
+<p>[Service]</p>
+<p>Type=dbus</p>
+<p>BusName=org.freedesktop.NetworkManager</p>
+<p>ExecStart=/usr/sbin/NetworkManager –no-daemon</p>
+<p>EnvironmentFile=/etc/sysconfig/network/config</p>
+<p>ExecStartPre=/usr/bin/test “x${NETWORKMANAGER}” = xyes</p>
+<p># Suppress stderr to eliminate duplicated messages in syslog. NM calls openlog()</p>
+<p># with LOG_PERROR when run in foreground. But systemd redirects stderr to</p>
+<p># syslog by default, which results in logging each message twice.</p>
+<p>StandardError=null</p>
+<p>[Install]</p>
+<p>WantedBy=multi-user.target</p>
+<p>Also=NetworkManager-wait-online.service</p>
+<p>以下我们以编写 He.net IPv6 单元文件为例。</p>
+<p>定义控制单元 [Unit]</p>
+<p>在 Systemd 中，所有引导过程中 Systemd 要控制的东西都是一个单元。Systemd 单元类型有：</p>
+<p>系统服务</p>
+<p>套接字（socket）</p>
+<p>设备</p>
+<p>挂载点</p>
+<p>自动挂载点</p>
+<p>SWAP 文件</p>
+<p>分区</p>
+<p>启动对象（startup target）</p>
+<p>文件系统路径</p>
+<p>定时器</p>
+<p>简单说，Systemd 把 *nix 里那些分散开发因此宏观看变成一团杂碎的东西重新统一命名了。单元名就是你写的这个 .service 文件的名称。但不只有 .service 后缀的文件才可以是一个单元，单元还可以有 .target, .path 等后缀，具体可以去 /usr/lib/systemd/system 下了解。但那种后缀要么由 Systemd 上游开发者写好随 systemd 软件包分发，要么由我们的 Base:system 团队添加，一般用户是不太需要写其它后缀的控制单元的。</p>
+<p>我们先要声明我们在定义控制单元：</p>
+<p>[Unit]</p>
+<p>单元名称就不用写了，我们要写一条单元描述：</p>
+<p>[Unit]</p>
+<p>Description=Daemon to start He.net IPv6</p>
+<p>下面我们要讲解一下 Systemd 是如何控制各个单元之间的关系的。它和 RPM 的 specfile 的依赖关系控制的语法非常相似（毕竟都是红帽一家的）：</p>
+<p>Requires: 这个单元启动了，那么它“需要”的单元也会被启动; 它“需要”的单元被停止了，它自己也活不了。但是请注意，这个设定并不能控制某单元与它“需要”的单元的启动顺序（启动顺序是另外控制的），即 Systemd 不是先启动 Requires 再启动本单元，而是在本单元被激活时，并行启动两者。于是会产生争分夺秒的问题，如果 Requires 先启动成功，那么皆大欢喜; 如果 Requires 启动得慢，那本单元就会失败（Systemd 没有自动重试）。所以为了系统的健壮性，不建议使用这个标记，而建议使用 Wants 标记。可以使用多个 Requires。</p>
+<p>RequiresOverridable：跟 Requires 很像。但是如果这条服务是由用户手动启动的，那么 RequiresOverridable 后面的服务即使启动不成功也不报错。跟 Requires 比增加了一定容错性，但是你要确定你的服务是有等待功能的。另外，如果不由用户手动启动而是随系统开机启动，那么依然会有 Requires 面临的问题。</p>
+<p>Requisite：强势版本的 Requires。要是这里需要的服务启动不成功，那本单元文件不管能不能检测等不能等待都立刻就会失败。</p>
+<p>Wants：推荐使用。本单元启动了，它“想要”的单元也会被启动。但是启动不成功，对本单元没有影响。</p>
+<p>Conflicts：一个单元的启动会停止与它“冲突”的单元，反之亦然。注意这里和后面的启动顺序是“正交”的：</p>
+<p>两个相互冲突的单元被同时启动，要么两个都启动不了（两者都是第三个单元的 Requires），要么启动一个（有一个是第三个单元的 Requires，另一个不是），不是 Requires 的那个会被停止。要是两者都不是任何一个单元的 Requires，那么 Conflicts 别的那个单元优先启动，被 Conflicts 的后启动，要是互相写了，那么两个都启动不了。</p>
+<p>OnFailure：很明显，如果本单元失败了，那么启动什么单元作为折衷。</p>
+<p>好了，现在我们来想象一下，我们的单元（Ipv6 隧道）应该想要什么呢？很显然是一个连通着的网络。有一个 Systemd 默认提供的对象叫做 network-online.target（默认的 target 列表可见 systemd.special，必看，因为你大多数时候 Wants 的都是一个固定的系统状态而不是其它 systemd 服务），正正好好能够提供我们需要的环境。于是：</p>
+<p>[Unit]</p>
+<p>Description=Daemon to start He.net IPv6</p>
+<p>Wants=network-online.target</p>
+<p>下面我们需要定义一下服务启动顺序，不然连 / 目录所在的硬盘都没挂载就开始干活，上哪儿找程序去呀。Systemd 服务启动顺序主要使用以下两个标记定义的：</p>
+<p>Before/After：要是一个服务 Before 另一个服务，那么在并行启动时（Systemd 总是用进程 0 并行启动所有东西，然后通过这两个标记来二次等待排序），那另一个服务这时就会等这个服务先启动并返回状态，注意是先启动而不是启动成功，因为失败也是一种状态，一定要成功才启动另一个服务是通过依赖关系定义的。反之 After 亦然。</p>
+<p>下面说下“关机”（可以是挂起，这时候有些服务是依然在跑的，比如网络唤醒）时候的顺序：如果两个服务都是要关掉的，Before 是先关自己，After 是先关别人，这很好理解; 但如果一个服务是要关，而另一个是要开的，那么不管 Before/After 写了什么，总是优先关闭而不是开始。也就是比如服务 A Before 服务 B，但是服务 B 是在关，而服务 A 是在 restart，那么服务 B 的顺序在服务 A 的前面。</p>
+<p>好啦，我们的单元应该在什么的前后启动呢？它不需要一定在什么服务前面跑起来，这不像 ifup 和 dhcp，网络起不来获取 ip 肯定没用。我们只需要有网就可以了。“有网”在 Systemd 中也是由一个默认 target：network.target 提供的，于是我们的控制单元就定义好了：</p>
+<p>[Unit]</p>
+<p>Description=Daemon to start He.net IPv6</p>
+<p>Wants=network-online.target</p>
+<p>After=network.target</p>
+<p>定义服务本体 [service]</p>
+<p>在定义完了 Systemd 用来识别服务的单元后，我们来定义服务本体，依然是声明：</p>
+<p>[Service]</p>
+<p>然后是声明服务类型：</p>
+<p>[Service]</p>
+<p>Type=</p>
+<p>Systemd 支持的服务类型有以下几类：</p>
+<p>simple 默认，这是最简单的服务类型。意思就是说启动的程序就是主体程序，这个程序要是退出那么一切皆休。这在图形界面里非常好理解，我打开 Amarok，退出它就没有了。但是命令行的大部分程序都不会那么设计，因为命令行的一个最基本原则就是一个好的程序不能独占命令行窗口。所以输入命令，回车，接着马上返回给你提示符，但程序已经执行了。所以只有少数程序比如 python xxx.py 还使用这种方式。在这种类型下面，如果你的主程序是要响应其它程序的，那么你的通信频道应该在启动本服务前就设好（套接字等），因此这种类型的服务，Systemd 运行它后会立刻就运行下面的服务（需要它的服务），这时没有套接字后面的服务会失败，写 After 也没用，因为 simple 类型不存在主进程退出的情况也就不存在有返回状态的情况，所以它一旦启动就认为是成功的，除非没起来。</p>
+<p>forking 标准 Unix Daemon 使用的启动方式。启动程序后会调用 fork() 函数，把必要的通信频道都设置好之后父进程退出，留下守护精灵的子进程。你要是使用的这种方式，最好也指定下 PIDFILE=，不要让 Systemd 去猜，非要猜也可以，把 GuessMainPID 设为 yes。</p>
+<p>判断是 forking 还是 simple 类型非常简单，命令行里运行下你的程序，持续占用命令行要按 Ctrl + C 才可以的，就不会是 forking 类型。</p>
+<p>创建 PIDFILE 是你为它写服务的程序的任务而不是 Systemd 的功能，甚至也不是 Sysvinit 脚本的功能。参考 startproc创建pid file的问题了解进一步的知识。因此如果你的程序确实是 forking 类型，但就是没实现创建 PIDFILE 的功能，那么建议使用 ExecStartPost= 结合 shell 命令来手动抓取进程编号并写到 /var/run/xxx.pid。</p>
+<p>oneshot 顾名思义，打一枪换一个地方。所以这种服务类型就是启动，完成，没进程了。常见比如你设置网络，ifup eth0 up，就是一次性的，不存在 ifup 的子进程（forking 那样），也不存在主进程（simple 那样），它运行完成后便了无痕迹。因为这类服务运行完就没进程了，我们经常会需要 RemainAfterExit=yes。后面配置的意思是说，即使没进程了，我们也要 Systemd 认为该服务是存在并成功了的。所以如果你有一个这样的服务，服务启动后，你再去 ifup eth0 up，这时你再看服务，依然显示是 running 的。因为只要在执行那条一次性命令的时候没出错，那么它就永远认为它是成功并一直存在的，直到你关闭服务。</p>
+<p>dbus 这个程序启动时需要获取一块 DBus 空间，所以需要和 BusName= 一起用。只有它成功获得了 DBus 空间，依赖它的程序才会被启动。</p>
+<p>一般人也就能用到上面四个，还有两种少见的类型：</p>
+<p>notify 这个程序在启动完成后会通过 sd_notify 发送一个通知消息。所以还需要配合 NotifyAccess 来让 Systemd 接收消息，后者有三个级别：none，所有消息都忽略掉; main，只接受我们程序的主进程发过去的消息; all，我们程序的所有进程发过去的消息都算。NotifyAccess 要是不写的话默认是 main。</p>
+<p>idle 这个程序要等它里面调度的全部其它东西都跑完才会跑它自己。比如你 ExecStart 的是个 shell 脚本，里面可能跑了一些别的东西，如果不这样的话，那很可能别的东西的控制台输出里会多一个“启动成功”这样的 Systemd 消息。</p>
+<p>由于 He.net 的 IPv6 是用 iproute2 的 ip 命令来弄的，所以是一个 oneshot 一次性服务。</p>
+<p>[Service]</p>
+<p>Type=oneshot</p>
+<p>RemainAfterExit=yes</p>
+<p>接下来要设置 ExecStart, ExecStop。如果程序支持的话，你还可以去设置 ExecReload，Restart 等。注意，这里设置的是它们 Reload/Restart 的方式，但并不代表没有它们 Systemd 就不能完成比如 systemctl restart xxx.service 这样的任务，程序有支持自然最好，程序不支持那就先 stop 再 start 咯。同样有特殊要求的时候你也可以去设置比如 ExecStartPre/ExecStartPost,RestartSec,TimeoutSec 等其它东西，参考链接里都有使用方法。</p>
+<p>这里要特殊讲一下 ExecStart：</p>
+<p>如果你服务的类型不是 oneshot，那么它只可以接受一个命令，参数不限，比如你先 ip tunnel create 再 ip tunnel0 up，那是两个 ip 命令，如果你不是 oneshot 类型这样是不行的。</p>
+<p>如果有多条命令（oneshot 类型），命令之间以分号 ; 分隔，跨行可用反斜杠 \。</p>
+<p>除非你的服务类型是 forking，否则你在这里输入的命令都会被认为是主进程，不管它是不是。</p>
+<p>于是我们的 [Service] 就写好了：</p>
+<p>[Service]</p>
+<p>Type=oneshot</p>
+<p>RemainAfterExit=yes</p>
+<p>ExecStart=/usr/sbin/ip tunnel add he-ipv6 mode sit remote 66.220.18.42 local 108.170.7.158 ttl 255 ; \</p>
+<p>/usr/sbin/ip link set he-ipv6 up ; \</p>
+<p>/usr/sbin/ip addr add 2001:470:c:1184::2/64 dev he-ipv6 ; \</p>
+<p>/usr/sbin/ip route add ::/0 dev he-ipv6 ; \</p>
+<p>/usr/sbin/ip -6 addr</p>
+<p>ExecStop=/usr/sbin/ip route delete ::/0 dev he-ipv6 ; \</p>
+<p>/usr/sbin/ip -6 addr del 2001:470:c:1184::2/64 dev he-ipv6 ; \</p>
+<p>/usr/sbin/ip link set he-ipv6 down ; \</p>
+<p>/usr/sbin/ip tunnel del he-ipv6</p>
+<p>安装服务 [install]</p>
+<p>这可能有点绕，我服务文件都弄好了，放到 /etc/systemd/system（供系统管理员和用户使用），/usr/lib/systemd/system（供发行版打包者使用）了，不就是安装好了嘛。</p>
+<p>这里说的是一种内部状态，默认你放对位置它显示的是 disabled，unloaded，所以我们要在 Systemd 内部对它进行一下 load，没人要的东西是不需要安装的（我们不收渣渣），所以我们要告诉 Systemd 它是有人要的，被谁要。一般都是被</p>
+<p>[Install]</p>
+<p>WantedBy=multi-user.target</p>
+<p>要（multi-user.target 表示多用户系统好了，简单理解就是你可以登入了）。这样在 multi-user.target 启用时，我们的服务也就会被启用了。</p>
+<p>[Install] 部分下除了 WantedBy 还有两种属性，分别是：</p>
+<p>Alias= 给你自己的别名，这样 systemctl command xxx.service 的时候就可以不输入完整的单元名称。比如你给 NetworkManager 一个别名叫 Alias=nm，那你就可以 systemctl status nm.service 查看实际是 NetworkManager.service 的服务了。</p>
+<p>Also= 安装本服务的时候还要安装别的什么服务。比如我们的 He.net 脚本按理应该需要一个 iproute2.service 作为 also，但是 iproute2 实际上不需要 systemd 控制，所以就没写。它和 [Unit] 定义里面的依赖关系相比，它管理的不是运行时依赖，而是安装时。安装好了之后启动谁先谁后，谁依赖谁，和 Also= 都没有关系。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://blog.binvon.com/2020/03/05/%E7%BC%96%E5%86%99Systemd%E6%9C%8D%E5%8A%A1%E6%96%87%E4%BB%B6/" title="编写Systemd服务文件" target="_blank" rel="external">http://blog.binvon.com/2020/03/05/编写Systemd服务文件/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="" target="_blank"><span class="text-dark"></span><small class="ml-1x">bin&#39;s blog</small></a></h3>
+        <div>bin。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/08/05/Consul%E9%9B%86%E7%BE%A4Server-Client%E6%A8%A1%E5%BC%8F/" title="Consul集群Server+Client模式"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2019/12/29/%E4%BD%BF%E7%94%A8goolge-cloud%E5%BB%BA%E8%AE%BEssr/" title="使用goolge cloud建设ssr"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+    <div class="copyright">copyright
+    	
+        &copy; 2021 by bin
+        
+        <!-- <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div> -->
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'hrHLbBHNRoRO13skM3QLfuWI-gzGzoHsz',
+    appKey: 'MobCaTsr0VXljT6U5bf7aPKU',
+    placeholder: '请谨慎留言，文明评论...',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
