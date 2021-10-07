@@ -17,17 +17,17 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>归档: 2019 | Bin&#39;s blog</title>
+  <title>Bin&#39;s blog</title>
   <meta name="description" content="good good study,day day up !!">
 <meta property="og:type" content="website">
 <meta property="og:title" content="bin">
-<meta property="og:url" content="http://blog.binvon.com/archives/2019/index.html">
+<meta property="og:url" content="http://blog.binvon.com/page/2/index.html">
 <meta property="og:site_name" content="bin">
 <meta property="og:description" content="good good study,day day up !!">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://blog.binvon.com/archives/2019/index.html">
+  <link rel="canonical" href="http://blog.binvon.com/page/2/index.html">
   
     <link rel="alternate" href="/atom.xml" title="bin" type="application/atom+xml">
   
@@ -346,50 +346,143 @@
 </aside>
 
   
+  <main class="main" role="main">
   
-<main class="main" role="main">
-  	<article class="content article article-archives article-type-list" itemscope="">
-	    <header class="article-header">
-	      <h1 itemprop="title">归档: 2019</h1>
-	      <p class="text-muted">共 1 篇文章</p>
-	    </header>
-	    <div class="article-body">
-	      
   
+    <div class="content">
+  <article id="post-JDK安装与环境变量配置" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/10/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/">JDK安装与环境变量配置</a>
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2015/07/10/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/" class="article-date">
+	  <time datetime="2015-07-10T08:23:43.000Z" itemprop="datePublished">2015-07-10</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/java/" rel="tag">java</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2015/07/10/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h5>工具/原料</h5>
+JDK1.7.0<br>
+WIN7
+<h5>方法/步骤</h5>
+一、安装JDK 选择安装目录 安装过程中会出现两次 安装提示 。第一次是安装 jdk ，第二次是安装 jre 。
+建议两个都安装在同一个java文件夹中的不同文件夹中。
+
+<p>（不能都安装在java文件夹的根目录下，jdk和jre安装在同一文件夹会出错）<br>如下图所示<br><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk1.png" alt="安装"><br><br></p>
+<p>二、1：安装jdk 随意选择目录 只需把默认安装目录 \java 之前的目录修改即可</p>
+<p>2：安装jre→更改→ \java 之前目录和安装 jdk 目录相同即可</p>
+<p>注：若无安装目录要求，可全默认设置。无需做任何修改，两次均直接点下一步。<br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk2.png" alt="安装"><br><br><br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk3.png" alt="安装"><br><br></p>
+<p>三、安装完JDK后配置环境变量  计算机→属性→高级系统设置→高级→环境变量<br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk4.png" alt="安装"><br><br></p>
+<p>四、系统变量→新建 JAVA_HOME 变量 。</p>
+<p>变量值填写jdk的安装目录（本人是 E:\Java\jdk1.7.0)<br><br>五、系统变量→寻找 Path 变量→编辑</p>
+<p>在变量值最后输入 %JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;</p>
+<p>（注意原来Path的变量值末尾有没有;号，如果没有，先输入；号再输入上面的代码）<br><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk5.png" alt="安装"><br><br></p>
+<p>六、系统变量→新建 CLASSPATH 变量</p>
+<p>变量值填写   .;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar（注意最前面有一点）</p>
+<p>系统变量配置完毕</p>
+<p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk6.png" alt="安装"><br><br></p>
+<p>七、检验是否配置成功 运行cmd 输入 java -version （java 和 -version 之间有空格）</p>
+<p>若如图所示 显示版本信息 则说明安装和配置成功。</p>
+<p><img src="https://binvonblog.oss-cn-shenzhen.aliyuncs.com/githubblog/img/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/jdk7.png" alt="安装"><br><br></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://blog.binvon.com/2015/07/10/JDK%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/" title="JDK安装与环境变量配置" target="_blank" rel="external">http://blog.binvon.com/2015/07/10/JDK安装与环境变量配置/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="" target="_blank"><span class="text-dark"></span><small class="ml-1x">bin&#39;s blog</small></a></h3>
+        <div>bin。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+</div>
+
+  
+
   
     
-    
-      
-      
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2019" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2019
-            </a>
-            <!-- <a href="/archives/2019" class="archive-year">2019</a> -->
-          </h3>
+    <nav class="bar bar-footer clearfix" data-stick-bottom>
+        <div class="bar-inner">
+        <ul class="pager pull-left">
+            
+            <li class="prev">
+                <a href="/">
+                    <i class="icon icon-angle-left"></i>
+                    上一页
+                </a>
+            </li>
+            
+            
+            <li class="next disabled">
+                <a href="javascript:;">
+                    下一页
+                    <i class="icon icon-angle-right"></i>                    
+                </a>
+            </li>
+            
+        </ul>
+        <div class="total-article bar-right">Page 2 of 2</div>
         </div>
-        <div id="collapse2019" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2019">
-        <div class="panel-body">
-          <div class="collection">
+    </nav>
     
-    
-<a href="/2019/12/29/%E4%BD%BF%E7%94%A8goolge-cloud%E5%BB%BA%E8%AE%BEssr/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2019-12-29T08:40:12.000Z" itemprop="datePublished">2019-12-29</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 使用goolge cloud建设ssr
-</a>
-
-
-  
-  
-    </div></div></div></section>
-  
-
-	    </div>
-  	</article>
-  	 	
+ 
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -435,6 +528,10 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+
+
+   
 
 
 

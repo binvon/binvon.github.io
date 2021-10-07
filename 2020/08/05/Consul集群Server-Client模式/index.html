@@ -17,17 +17,21 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>归档: 2019 | Bin&#39;s blog</title>
-  <meta name="description" content="good good study,day day up !!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="bin">
-<meta property="og:url" content="http://blog.binvon.com/archives/2019/index.html">
+  <title>Consul集群Server+Client模式 | Bin&#39;s blog</title>
+  <meta name="description" content="Consul集群Server+Client模式 架构示意图 只使用Consul的Server模式有以下2个问题：  因为Consul Server数量受到控制所以压力承载（扩展性）是个问题。 Server很少导致一个Server下会注册很多微服务，当Server挂掉，这个Server节点下注册的微服务都会视为无效。  基于上述问题我们在架构中加入Consul Client模式，Client因为加入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Consul集群Server+Client模式">
+<meta property="og:url" content="http://blog.binvon.com/2020/08/05/Consul%E9%9B%86%E7%BE%A4Server-Client%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="bin">
-<meta property="og:description" content="good good study,day day up !!">
+<meta property="og:description" content="Consul集群Server+Client模式 架构示意图 只使用Consul的Server模式有以下2个问题：  因为Consul Server数量受到控制所以压力承载（扩展性）是个问题。 Server很少导致一个Server下会注册很多微服务，当Server挂掉，这个Server节点下注册的微服务都会视为无效。  基于上述问题我们在架构中加入Consul Client模式，Client因为加入">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-05T05:18:27.000Z">
+<meta property="article:modified_time" content="2020-08-10T15:03:42.000Z">
+<meta property="article:tag" content="springcloud">
+<meta property="article:tag" content="consul">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://blog.binvon.com/archives/2019/index.html">
+  <link rel="canonical" href="http://blog.binvon.com/2020/08/05/Consul%E9%9B%86%E7%BE%A4Server-Client%E6%A8%A1%E5%BC%8F/index.html">
   
     <link rel="alternate" href="/atom.xml" title="bin" type="application/atom+xml">
   
@@ -348,48 +352,152 @@
   
   
 <main class="main" role="main">
-  	<article class="content article article-archives article-type-list" itemscope="">
-	    <header class="article-header">
-	      <h1 itemprop="title">归档: 2019</h1>
-	      <p class="text-muted">共 1 篇文章</p>
-	    </header>
-	    <div class="article-body">
-	      
-  
-  
+  <div class="content">
+  <article id="post-Consul集群Server-Client模式" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
-    
+    <div class="article-header">
       
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Consul集群Server+Client模式
+    </h1>
+  
+
       
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2019" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2019
-            </a>
-            <!-- <a href="/archives/2019" class="archive-year">2019</a> -->
-          </h3>
-        </div>
-        <div id="collapse2019" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2019">
-        <div class="panel-body">
-          <div class="collection">
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/08/05/Consul%E9%9B%86%E7%BE%A4Server-Client%E6%A8%A1%E5%BC%8F/" class="article-date">
+	  <time datetime="2020-08-05T05:18:27.000Z" itemprop="datePublished">2020-08-05</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/consul/" rel="tag">consul</a>, <a class="article-tag-link-link" href="/tags/springcloud/" rel="tag">springcloud</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/08/05/Consul%E9%9B%86%E7%BE%A4Server-Client%E6%A8%A1%E5%BC%8F/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p><strong>Consul集群Server+Client模式</strong></p>
+<p><strong>架构示意图</strong></p>
+<p>只使用Consul的Server模式有以下2个问题：</p>
+<ul>
+<li>因为Consul Server数量受到控制所以压力承载（扩展性）是个问题。</li>
+<li>Server很少导致一个Server下会注册很多微服务，当Server挂掉，这个Server节点下注册的微服务都会视为无效。</li>
+</ul>
+<p>基于上述问题我们在架构中加入Consul Client模式，Client因为加入了LAN gossip协议组成网络中（高速局域网），可以识别故障的Server节点并找到可用的Server节点继续工作，其实Server模式负责的是用WAN gossip协议组成的网络进行跨广域网的数据同步（多个数据中心），这点Client模式是做不到的，Client模式也提供服务的注册和查询，但Client模式不存储节点数据，Client将请求转发给Server进行处理，节点注册数据在Server端是持久化保存的，Client的数量可以无限多，Server的数量是受控制的。总之：Client模式+LAN gossip协议组成了一个数据中心中的各个节点，Server负责投票选出Leader进行数据中心内的数据同步，这个Leader还负责利用WAN gossip协议跨广域网的与其他数据中心进行数据同步。</p>
+<p>PS：在Client注册的服务心跳监控检查由Client负责。</p>
+<p><strong>搭建环境</strong></p>
+<p>获得Docker镜像（bluersw/spring-cloud-consul-consumer 是服务消费者镜像里面运行的程序项目叫spring-cloud-consul-client，因为名字的起的不讲究导致了混乱，spring-cloud-consul-client不是Consul Client。）：</p>
+<p>docker pull consuldocker pull bluersw/spring-cloud-consul-consumer:ccdocker pull bluersw/spring-cloud-provider:ccdocker pull bluersw/spring-cloud-provider:ccdocker pull bluersw/spring-cloud-provider-second:cc</p>
+<p>启动Consul Server(Windows版本的Docker运行命令时参数的IP地址要用”ip地址”,比如：-client=”0.0.0.0”)：</p>
+<p>docker run -i -t -p 8500:8500 –name=ConsulServer-C consul agent -server -ui -node=Server-C -bootstrap-expect=3 -client=0.0.0.0docker run -i -t -p 8501:8500 –name=ConsulServer-A consul agent -server -ui -node=Server-A -bootstrap-expect=3 -client=0.0.0.0 -join=172.17.0.2docker run -i -t -p 8502:8500 –name=ConsulServer-B consul agent -server -ui -node=Server-B -bootstrap-expect=3 -client=0.0.0.0 -join=172.17.0.2</p>
+<p>启动spring-cloud-provider：</p>
+<p>docker run –name=spring-cloud-provider  -d  -p 9001:9001 bluersw/spring-cloud-provider:cc /opt/consul/./consul agent -data-dir=/opt/consul/data -config-dir=/opt/consul/config -node=privider-cc  -join 172.17.0.3</p>
+<p>在启动此Docker的同时运行Consul Client模式，并加入Consul Server A（加入那个Consul Server都可以）,TAG为CC的镜像文件里已经包含了Consul程序。</p>
+<p>spring-cloud-provider的配置文件内容：</p>
+<p>spring.application.name=spring-cloud-provider-01server.port=9001spring.cloud.consul.host=127.0.0.1spring.cloud.consul.port=8500#注册到consul的服务名称spring.cloud.consul.discovery.serviceName=service-provider#以下两项如果不配置健康检查一定失败spring.cloud.consul.discovery.prefer-ip-address=truespring.cloud.consul.discovery.health-check-path=/actuator/health</p>
+<p>配置中的注册服务地址已经改成了127.0.0.1，其他服务项目的配置文件都改成了在本机的Consul Client中注册。</p>
+<p>启动服务：</p>
+<p>docker exec  spring-cloud-provider /usr/local/java/bin/java -jar /opt/spring-cloud-provider-0.0.1-SNAPSHOT.jar</p>
+<p>service-provider服务在privider-cc节点被注册成功。</p>
+<p>用同样的方法启动spring-cloud-provider-second和spring-cloud-consul-consumer。</p>
+<p>docker run –name=spring-cloud-provider-second -d -p 9002:9002 bluersw/spring-cloud-provider-second:cc  /opt/consul/./consul agent -data-dir=/opt/consul/data -config-dir=/opt/consul/config -node=provider-second-cc  -join 172.17.0.4docker exec  spring-cloud-provider-second /usr/local/java/bin/java -jar /opt/spring-cloud-provider-second-0.0.1-SNAPSHOT.jardocker run –name=spring-cloud-consul-consumer -d -p 9003:9003 bluersw/spring-cloud-consul-consumer:cc /opt/consul/./consul agent -data-dir=/opt/consul/data -config-dir=/opt/consul/config -node=consumer-cc  -join 172.17.0.2docker exec  spring-cloud-consul-consumer /usr/local/java/bin/java -jar /opt/spring-cloud-consul-client-0.0.1-SNAPSHOT.jar</p>
+<p><strong>模拟服务器故障</strong></p>
+<p>关闭Consul Server B：</p>
+<p>因为service-provider在本机的Consul Client中注册，并Client可以利用LAN gossip协议找到可用的Server，所以关闭Consul Server B丝毫造成不了影响,如果Client或者服务本身挂掉了，那么Server端会将此节点或服务标记故障并不再使用，请求者就请求不到这个故障的节点了,同样的修复故障节点后所有服务和功能恢复如初。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://blog.binvon.com/2020/08/05/Consul%E9%9B%86%E7%BE%A4Server-Client%E6%A8%A1%E5%BC%8F/" title="Consul集群Server+Client模式" target="_blank" rel="external">http://blog.binvon.com/2020/08/05/Consul集群Server-Client模式/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="" target="_blank"><span class="text-dark"></span><small class="ml-1x">bin&#39;s blog</small></a></h3>
+        <div>bin。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/08/09/Linux%E4%B8%8B%E5%AE%89%E8%A3%85Consul/" title="Linux下安装Consul"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
     
     
-<a href="/2019/12/29/%E4%BD%BF%E7%94%A8goolge-cloud%E5%BB%BA%E8%AE%BEssr/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2019-12-29T08:40:12.000Z" itemprop="datePublished">2019-12-29</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 使用goolge cloud建设ssr
-</a>
-
-
+    <li class="next">
+      <a href="/2019/12/29/%E4%BD%BF%E7%94%A8goolge-cloud%E5%BB%BA%E8%AE%BEssr/" title="使用goolge cloud建设ssr"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
   
   
-    </div></div></div></section>
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
   
 
-	    </div>
-  	</article>
-  	 	
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -437,6 +545,37 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'hrHLbBHNRoRO13skM3QLfuWI-gzGzoHsz',
+    appKey: 'MobCaTsr0VXljT6U5bf7aPKU',
+    placeholder: '请谨慎留言，文明评论...',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
 
 
 
